@@ -21,9 +21,9 @@ public class VehiclesEntity {
     @Column(unique = true, nullable = false)
     private String patente;
 
-    private String Marca;
+    private String marca;
 
-    private String Modelo;
+    private String modelo;
 
     private String tipo;
 
