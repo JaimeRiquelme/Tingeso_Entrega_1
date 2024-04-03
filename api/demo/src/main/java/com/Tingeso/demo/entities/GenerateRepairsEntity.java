@@ -37,4 +37,6 @@ public class GenerateRepairsEntity {
     private LocalDateTime fecha_entrega_cliente;
 
     private LocalTime hora_entrega_cliente;
+
+    private int id_vehiculo; //Aqui podriamos relacionar con otra tabla
 }
