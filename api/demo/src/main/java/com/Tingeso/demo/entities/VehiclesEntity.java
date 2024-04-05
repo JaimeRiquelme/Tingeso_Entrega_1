@@ -32,4 +32,7 @@ public class VehiclesEntity {
     private String tipo_motor;
 
     private String numero_asientos;
+
+    private int numero_reparaciones;
+
 }
