@@ -1,8 +1,15 @@
 package com.Tingeso.demo.entities;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
+@Table(name="DiscountRepairs")
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
 public class DiscountRepairsEntity {
 
     @Id
@@ -18,7 +25,7 @@ public class DiscountRepairsEntity {
 
     private float diesel;
 
-    private float hibirido;
+    private float hibrido;
 
     private float electrico;
 
