@@ -3,7 +3,8 @@ import { useState, useEffect } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { Box, FormControl, TextField, Button } from "@mui/material";
 import SaveIcon from "@mui/icons-material/Save";
-
+import { Select, MenuItem, InputLabel } from "@mui/material";
+import Typography from "@mui/material/Typography";
 
 const AddEditVehicle = () => {
   const [patente, setPatente] = useState("");
@@ -15,6 +16,8 @@ const AddEditVehicle = () => {
   const [numero_asientos, setNumero_asientos] = useState("");
   const [numero_reparaciones, setNumero_reparaciones] = useState("");
   const [titleVehicleForm, setTitleVehicleForm] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+
   const navigate = useNavigate();
 
   const saveVehicle = (e) => {
@@ -31,43 +34,34 @@ const AddEditVehicle = () => {
       numero_reparaciones,
     };
 
-    if (patente) {
-      vehicleService
-        .update(vehicle)
-        .then((response) => {
-          console.log("Vehiculo actualizado con éxito", response.data);
-        })
-        .catch((error) => {
-          console.log("Error al actualizar el vehiculo", error);
-        });
-    }else{
-      vehicleService
-        .create(vehicle)
-        .then((response) => {
-          console.log("Vehiculo creado con éxito", response.data);
-        })
-        .catch((error) => {
-          console.log("Error al crear el vehiculo", error);
-        });
-    }
+    vehicleService
+      .create(vehicle)
+      .then((response) => {
+        console.log("Vehiculo creado con éxito", response.data);
+      })
+      .catch((error) => {
+        console.log("Error al crear el vehiculo", error);
+      });
   };
 
   useEffect(() => {
     if (patente) {
       setTitleVehicleForm("Editar Vehículo");
-      vehicleService.get(patente).then((response) => {
-        setMarca(response.data.marca);
-        setModelo(response.data.modelo);
-        setTipo(response.data.tipo);
-        setAnio_fabricacion(response.data.anio_fabricacion);
-        setTipo_motor(response.data.tipo_motor);
-        setNumero_asientos(response.data.numero_asientos);
-        setNumero_reparaciones(response.data.numero_reparaciones);
-      })
-      .catch((error) => {
-        console.log("Error al obtener el vehiculo", error);
-      });
-    }else{
+      vehicleService
+        .get(patente)
+        .then((response) => {
+          setMarca(response.data.marca);
+          setModelo(response.data.modelo);
+          setTipo(response.data.tipo);
+          setAnio_fabricacion(response.data.anio_fabricacion);
+          setTipo_motor(response.data.tipo_motor);
+          setNumero_asientos(response.data.numero_asientos);
+          setNumero_reparaciones(response.data.numero_reparaciones);
+        })
+        .catch((error) => {
+          console.log("Error al obtener el vehiculo", error);
+        });
+    } else {
       setTitleVehicleForm("Agregar Vehículo");
     }
   }, []);
@@ -90,6 +84,7 @@ const AddEditVehicle = () => {
           value={patente}
           variant="standard"
           onChange={(e) => setPatente(e.target.value)}
+          required
         />
       </FormControl>
 
@@ -100,6 +95,7 @@ const AddEditVehicle = () => {
           value={marca}
           variant="standard"
           onChange={(e) => setMarca(e.target.value)}
+          required
         />
       </FormControl>
 
@@ -110,17 +106,26 @@ const AddEditVehicle = () => {
           value={modelo}
           variant="standard"
           onChange={(e) => setModelo(e.target.value)}
+          required
         />
       </FormControl>
 
-      <FormControl fullWidth margin="normal">
-        <TextField
+      <FormControl fullWidth>
+        <InputLabel id="tipo-label">Tipo</InputLabel>
+        <Select
+          labelId="tipo-label"
           id="tipo"
-          label="Tipo"
           value={tipo}
-          variant="standard"
+          label="Tipo"
           onChange={(e) => setTipo(e.target.value)}
-        />
+          required
+        >
+          <MenuItem value={"Sedan"}>Sedán</MenuItem>
+          <MenuItem value={"Hatchback"}>Hatchback</MenuItem>
+          <MenuItem value={"SUV"}>SUV</MenuItem>
+          <MenuItem value={"Pickup"}>Pickup</MenuItem>
+          <MenuItem value={"Furgoneta"}>Furgoneta</MenuItem>
+        </Select>
       </FormControl>
 
       <FormControl fullWidth margin="normal">
@@ -131,17 +136,25 @@ const AddEditVehicle = () => {
           value={anio_fabricacion}
           variant="standard"
           onChange={(e) => setAnio_fabricacion(e.target.value)}
+          required
         />
       </FormControl>
 
-      <FormControl fullWidth margin="normal">
-        <TextField
+      <FormControl fullWidth>
+        <InputLabel id="tipo_motor">Tipo_motor</InputLabel>
+        <Select
+          labelId="tipo_motor-label"
           id="tipo_motor"
-          label="Tipo de Motor"
           value={tipo_motor}
-          variant="standard"
+          label="tipo_motor"
           onChange={(e) => setTipo_motor(e.target.value)}
-        />
+          required
+        >
+          <MenuItem value={"Gasolina"}>Gasolina</MenuItem>
+          <MenuItem value={"Diesel"}>Diesel</MenuItem>
+          <MenuItem value={"Híbrido"}>Híbrido</MenuItem>
+          <MenuItem value={"Electrico"}>Eléctrico</MenuItem>
+        </Select>
       </FormControl>
 
       <FormControl fullWidth margin="normal">
@@ -152,6 +165,7 @@ const AddEditVehicle = () => {
           value={numero_asientos}
           variant="standard"
           onChange={(e) => setNumero_asientos(e.target.value)}
+          required
         />
       </FormControl>
 
@@ -163,6 +177,7 @@ const AddEditVehicle = () => {
           value={numero_reparaciones}
           variant="standard"
           onChange={(e) => setNumero_reparaciones(e.target.value)}
+          required
         />
       </FormControl>
 
@@ -171,18 +186,36 @@ const AddEditVehicle = () => {
           variant="contained"
           color="primary"
           type="submit"
-          onClick={(e) => saveVehicle(e)}
+          onClick={(e) => {
+            if (
+              patente &&
+              marca &&
+              modelo &&
+              tipo &&
+              anio_fabricacion &&
+              tipo_motor &&
+              numero_asientos &&
+              numero_reparaciones
+            ) {
+              saveVehicle(e);
+            } else {
+              setErrorMessage("Todos los campos son obligatorios");
+              // Esto evitará que la página se recargue, si estás usando un <form>
+              e.preventDefault();
+            }
+          }}
           startIcon={<SaveIcon />}
-          
         >
           Grabar
         </Button>
       </FormControl>
-      <hr />  
+      <FormControl fullWidth margin="normal">
+        {errorMessage && <Typography color="error">{errorMessage}</Typography>}
+      </FormControl>
+
+      <hr />
     </Box>
   );
 };
 
 export default AddEditVehicle;
-
-

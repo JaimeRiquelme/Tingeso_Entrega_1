@@ -22,4 +22,12 @@ public class VehiclesServices {
     public VehiclesEntity saveVehicle(VehiclesEntity vehicle){
         return vehiclesRepository.save(vehicle);
     }
+
+    public VehiclesEntity getVehiclesByPatente(String patente){
+        return vehiclesRepository.findByPatente(patente);
+    }
+
+    public VehiclesEntity updateVehicle(VehiclesEntity vehicle){
+        return vehiclesRepository.save(vehicle);
+    }
 }

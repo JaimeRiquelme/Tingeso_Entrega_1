@@ -2,6 +2,7 @@ package com.Tingeso.demo.controllers;
 
 import com.Tingeso.demo.entities.VehiclesEntity;
 import com.Tingeso.demo.services.VehiclesServices;
+import jakarta.persistence.PostUpdate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -9,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping("/api/v1/vehicles")
 @CrossOrigin("*")
 public class VehiclesController {
@@ -28,4 +29,18 @@ public class VehiclesController {
         VehiclesEntity vehicleNew = vehiclesServices.saveVehicle(vehicle);
         return ResponseEntity.ok(vehicleNew);
     }
+
+    @GetMapping("/{patente}")
+    public ResponseEntity<VehiclesEntity> getVehiclesByPatente(@PathVariable String patente){
+        VehiclesEntity vehicle = vehiclesServices.getVehiclesByPatente(patente);
+        return ResponseEntity.ok(vehicle);
+    }
+
+    @PutMapping("/{patente}")
+    public ResponseEntity<VehiclesEntity> updateVehicle(@RequestBody VehiclesEntity vehicle){
+        VehiclesEntity vehicleUpdated = vehiclesServices.updateVehicle(vehicle);
+        return ResponseEntity.ok(vehicleUpdated);
+    }
+
+
 }

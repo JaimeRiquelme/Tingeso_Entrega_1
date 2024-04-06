@@ -1,15 +1,19 @@
 import httpCommon from "../http-common";
 
 const getAll = () => {
-    return httpCommon.get("api/v1/vehicles");
+    return httpCommon.get("api/v1/vehicles/");
+}
+
+const getPatente = patente => {
+    return httpCommon.get(`api/v1/vehicles/${patente}`);
 }
 
 const create = data => {
-    return httpCommon.post("api/v1/vehicles", data);
+    return httpCommon.post("api/v1/vehicles/", data);
 }
 
-const update = (patente, data) => {
-    return httpCommon.put(`api/v1/vehicles/${patente}`, data);
+const update = data => {
+    return httpCommon.put('api/v1/vehicles/',data);
 }
 
 const remove = id => {
@@ -19,4 +23,4 @@ const remove = id => {
 const get = id => {
     return httpCommon.get(`api/v1/vehicles/${id}`);
 }
-export default { getAll, create, update, remove, get };
+export default { getAll, create, update, remove, get, getPatente};
