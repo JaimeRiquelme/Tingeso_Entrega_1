@@ -8,8 +8,8 @@ const create = data => {
     return httpCommon.post("api/v1/vehicles", data);
 }
 
-const update = (id, data) => {
-    return httpCommon.put(`api/v1/vehicles/${id}`, data);
+const update = (patente, data) => {
+    return httpCommon.put(`api/v1/vehicles/${patente}`, data);
 }
 
 const remove = id => {
@@ -19,3 +19,4 @@ const remove = id => {
 const get = id => {
     return httpCommon.get(`api/v1/vehicles/${id}`);
 }
+export default { getAll, create, update, remove, get };

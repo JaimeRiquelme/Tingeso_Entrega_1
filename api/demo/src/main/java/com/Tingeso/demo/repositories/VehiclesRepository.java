@@ -13,4 +13,6 @@ public interface VehiclesRepository extends JpaRepository<VehiclesEntity, Long> 
     //Encontrar vehiculo por su patente
     VehiclesEntity findByPatente(String patente);
 
+    //
+
 }
