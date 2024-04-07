@@ -34,12 +34,19 @@ export default function Sidemenu({ open, toggleDrawer }) {
         </ListItemButton>
 
         <Divider />
-        <ListItemButton onClick={() => navigate("/vehicles")}>
+        <ListItemButton onClick={() => navigate("/vehicles/List")}>
           <ListItemIcon>
             <HomeIcon />
           </ListItemIcon>
-          <ListItemText primary="Registrar vehículo" />
+          <ListItemText primary="Ver vehículos" />
         </ListItemButton>
+        <ListItemButton onClick={() => navigate("/bonuses/add")}>
+          <ListItemIcon>
+            <HomeIcon />
+          </ListItemIcon>
+          <ListItemText primary="Ver Bonos" />
+        </ListItemButton>
+        
       </List>
       <Divider />
     </Box>

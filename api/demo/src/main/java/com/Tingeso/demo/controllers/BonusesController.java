@@ -22,9 +22,22 @@ public class BonusesController {
         return ResponseEntity.ok(bonuses);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<BonusesEntity> getBonus(@PathVariable long id) {
+        BonusesEntity bonus = bonusesServices.getBonusById(id);
+        return ResponseEntity.ok(bonus);
+    }
+
+
     @PostMapping("/")
     public ResponseEntity<BonusesEntity> saveBonus(@RequestBody BonusesEntity bonus) {
         BonusesEntity bonusNew = bonusesServices.saveBonus(bonus);
+        return ResponseEntity.ok(bonusNew);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<BonusesEntity> updateBonus(@PathVariable long id, @RequestBody BonusesEntity bonus) {
+        BonusesEntity bonusNew = bonusesServices.updateBonus(bonus, id);
         return ResponseEntity.ok(bonusNew);
     }
 }

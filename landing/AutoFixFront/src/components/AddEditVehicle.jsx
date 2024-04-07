@@ -14,7 +14,6 @@ const AddEditVehicle = () => {
   const [anio_fabricacion, setAnio_fabricacion] = useState("");
   const [tipo_motor, setTipo_motor] = useState("");
   const [numero_asientos, setNumero_asientos] = useState("");
-  const [numero_reparaciones, setNumero_reparaciones] = useState("");
   const [titleVehicleForm, setTitleVehicleForm] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -31,13 +30,14 @@ const AddEditVehicle = () => {
       anio_fabricacion,
       tipo_motor,
       numero_asientos,
-      numero_reparaciones,
+      numero_reparaciones:0,
     };
 
     vehicleService
       .create(vehicle)
       .then((response) => {
         console.log("Vehiculo creado con éxito", response.data);
+        navigate("/vehicles/List");
       })
       .catch((error) => {
         console.log("Error al crear el vehiculo", error);
@@ -45,25 +45,7 @@ const AddEditVehicle = () => {
   };
 
   useEffect(() => {
-    if (patente) {
-      setTitleVehicleForm("Editar Vehículo");
-      vehicleService
-        .get(patente)
-        .then((response) => {
-          setMarca(response.data.marca);
-          setModelo(response.data.modelo);
-          setTipo(response.data.tipo);
-          setAnio_fabricacion(response.data.anio_fabricacion);
-          setTipo_motor(response.data.tipo_motor);
-          setNumero_asientos(response.data.numero_asientos);
-          setNumero_reparaciones(response.data.numero_reparaciones);
-        })
-        .catch((error) => {
-          console.log("Error al obtener el vehiculo", error);
-        });
-    } else {
-      setTitleVehicleForm("Agregar Vehículo");
-    }
+      setTitleVehicleForm("Registrar Vehículo");
   }, []);
 
   return (
@@ -168,19 +150,6 @@ const AddEditVehicle = () => {
           required
         />
       </FormControl>
-
-      <FormControl fullWidth margin="normal">
-        <TextField
-          id="numero_reparaciones"
-          label="Número de Reparaciones"
-          type="number"
-          value={numero_reparaciones}
-          variant="standard"
-          onChange={(e) => setNumero_reparaciones(e.target.value)}
-          required
-        />
-      </FormControl>
-
       <FormControl margin="normal">
         <Button
           variant="contained"
@@ -211,9 +180,9 @@ const AddEditVehicle = () => {
       </FormControl>
       <FormControl fullWidth margin="normal">
         {errorMessage && <Typography color="error">{errorMessage}</Typography>}
-      </FormControl>
-
+      </FormControl>   
       <hr />
+      <Link to = "/vehicles/List">Regresar a la lista de vehículos</Link>
     </Box>
   );
 };

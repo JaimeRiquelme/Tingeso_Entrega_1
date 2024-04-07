@@ -22,4 +22,16 @@ public class BonusesServices {
     public BonusesEntity saveBonus(BonusesEntity bonus){
         return bonusesRepository.save(bonus);
     }
+
+    public BonusesEntity updateBonus(BonusesEntity bonus, long id){
+        BonusesEntity bonusUpdate = bonusesRepository.findById(id).get();
+        bonusUpdate.setMarca(bonus.getMarca());
+        bonusUpdate.setDisponibilidad(bonus.getDisponibilidad());
+        bonusUpdate.setMonto(bonus.getMonto());
+        return bonusesRepository.save(bonusUpdate);
+    }
+
+    public BonusesEntity getBonusById(long id){
+        return bonusesRepository.findById(id).get();
+    }
 }

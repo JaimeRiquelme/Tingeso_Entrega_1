@@ -30,4 +30,7 @@ public class VehiclesServices {
     public VehiclesEntity updateVehicle(VehiclesEntity vehicle){
         return vehiclesRepository.save(vehicle);
     }
+    public void deleteVehicle(long id){
+        vehiclesRepository.deleteById(id);
+    }
 }
