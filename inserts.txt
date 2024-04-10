@@ -1,0 +1,42 @@
+INSERT INTO repairs_type (id, type, description, cost_gasoline, cost_diesel, cost_hybrid, cost_electric) VALUES
+(1, 'Sistema de Frenos', 'Incluye el reemplazo de pastillas de freno, discos,
+tambores, líneas de freno y reparación o reemplazo del cilindro maestro de frenos.', 120000, 120000, 180000, 220000),
+(2, 'Sistema de Refrigeración', 'Reparación o reemplazo de radiadores, bombas de agua, termostatos y mangueras', 130000, 130000, 190000, 230000),
+(3, 'Motor', 'Desde reparaciones menores como el reemplazo de bujías y cables, hasta reparaciones mayores como la reconstrucción del motor o la reparación de la junta de la culata.', 350000, 450000, 700000, 800000),
+(4, 'Transmisión', 'Incluyen la reparación o reemplazo de componentes de la transmisión manual o automática, cambios de líquido y solución de problemas de cambios de marcha.', 210000, 210000, 300000, 300000),
+(5, 'Sistema Eléctrico', 'Solución de problemas y reparación de alternadores, arrancadores, baterías y sistemas de cableado, así como la reparación de componentes electrónicos como faros, intermitentes y sistemas de entretenimiento.', 150000, 150000, 200000, 250000),
+(6, 'Sistema de Escape', 'Incluye el reemplazo del silenciador, tubos de escape, catalizador y la solución de problemas relacionados con las emisiones.', 100000, 120000, 450000, 0),
+(7, 'Neumáticos y Ruedas', 'Reparación de pinchazos, reemplazo de neumáticos, alineación y balanceo de ruedas.', 100000, 100000, 100000, 100000),
+(8, 'Suspensión y Dirección', 'Reemplazo de amortiguadores, brazos de control, rótulas y reparación del sistema de dirección asistida.', 180000, 180000, 210000, 250000),
+(9, 'Aire Acondicionado y Calefacción', 'Incluye la recarga de refrigerante, reparación o reemplazo del compresor, y solución de problemas del sistema de calefacción.', 150000, 150000, 180000, 180000),
+(10, 'Sistema de Combustible', 'Limpieza o reemplazo de inyectores de combustible, reparación o reemplazo de la bomba de combustible y solución de problemas de suministro de combustible.', 130000, 140000, 220000, 0),
+(11, 'Parabrisas y Cristales', 'Reparación de pequeñas grietas en el parabrisas o reemplazo completo de parabrisas y ventanas dañadas.', 80000, 80000, 80000, 80000);
+
+
+INSERT INTO DiscountRepairs (reparaciones_minimas, reparaciones_maximas, gasolina, diesel, hibrido, electrico) VALUES
+(1, 2, 0.05, 0.07, 0.10, 0.08),
+(3, 5, 0.10, 0.12, 0.15, 0.13),
+(6, 9, 0.15, 0.17, 0.20, 0.18),
+(10, 999999999, 0.20, 0.22, 0.25, 0.23); -- Assuming 999999999 as a placeholder for '10 – Más'
+
+
+INSERT INTO Bonuses (marca, disponibilidad, monto) VALUES
+('Toyota', '5', 70000),
+('Ford', '2', 50000),
+('Hyundai', '1', 30000),
+('Honda', '7', 40000);
+
+
+INSERT INTO Surcharge_Mileage (kilometraje_minimo, kilometraje_maximo, sedan, hatchback, suv, pickup, furgoneta) VALUES
+(0, 5000, 0.00, 0.00, 0.00, 0.00, 0.00),
+(5001, 12000, 0.03, 0.03, 0.05, 0.05, 0.05),
+(12001, 25000, 0.07, 0.07, 0.09, 0.09, 0.09),
+(25001, 40000, 0.12, 0.12, 0.12, 0.12, 0.12),
+(40001, 999999999, 0.20, 0.20, 0.20, 0.20, 0.20); -- Assuming 999999999 represents "más"
+
+
+INSERT INTO Surcharge_Seniority (years_min, years_max, sedan, hatchback, suv, pickup, furgoneta) VALUES
+(0, 5, 0.00, 0.00, 0.00, 0.00, 0.00),
+(6, 10, 0.05, 0.05, 0.07, 0.07, 0.07),
+(11, 15, 0.09, 0.09, 0.11, 0.11, 0.11),
+(16, 99999, 0.15, 0.15, 0.20, 0.20, 0.20); -- Assuming 99999 as a placeholder for '16 – más'
