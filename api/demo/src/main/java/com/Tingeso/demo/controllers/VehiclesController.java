@@ -36,11 +36,6 @@ public class VehiclesController {
         return ResponseEntity.ok(vehicle);
     }
 
-    @PutMapping("/{patente}")
-    public ResponseEntity<VehiclesEntity> updateVehicle(@RequestBody VehiclesEntity vehicle){
-        VehiclesEntity vehicleUpdated = vehiclesServices.updateVehicle(vehicle);
-        return ResponseEntity.ok(vehicleUpdated);
-    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteVehicle(@PathVariable long id){

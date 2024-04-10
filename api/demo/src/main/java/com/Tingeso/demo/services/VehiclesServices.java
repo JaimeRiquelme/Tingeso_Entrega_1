@@ -27,9 +27,7 @@ public class VehiclesServices {
         return vehiclesRepository.findByPatente(patente);
     }
 
-    public VehiclesEntity updateVehicle(VehiclesEntity vehicle){
-        return vehiclesRepository.save(vehicle);
-    }
+
     public void deleteVehicle(long id){
         vehiclesRepository.deleteById(id);
     }
