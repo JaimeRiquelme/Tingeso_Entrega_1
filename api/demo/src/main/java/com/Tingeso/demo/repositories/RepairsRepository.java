@@ -6,4 +6,6 @@ import com.Tingeso.demo.entities.RepairsEntity;
 
 @Repository
 public interface RepairsRepository extends JpaRepository<RepairsEntity, Long> {
+
+
 }

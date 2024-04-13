@@ -5,10 +5,12 @@ import jakarta.persistence.*;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.List;
 
 @Entity
 @Table(name="Reparaciones")
@@ -26,7 +28,8 @@ public class GenerateRepairsEntity {
 
     private LocalTime hora_ingreso_taller;
 
-    private String tipo_reparacion; //Aqui podriamos relacionar con otra tabla
+    //Como puede tener mas de un tipo de reparacion, podriamos hacer una lista de ids de reparaciones
+    private String tipo_reparacion;
 
     private Float monto_total_reparacion;
 
@@ -39,4 +42,6 @@ public class GenerateRepairsEntity {
     private LocalTime hora_entrega_cliente;
 
     private String patente_vehiculo; //Aqui podriamos relacionar con otra tabla
+
+
 }

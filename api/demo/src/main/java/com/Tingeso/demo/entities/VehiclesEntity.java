@@ -35,4 +35,6 @@ public class VehiclesEntity {
 
     private int numero_reparaciones;
 
+    private int kilometraje;
+
 }
