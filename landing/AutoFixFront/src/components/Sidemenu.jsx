@@ -46,6 +46,12 @@ export default function Sidemenu({ open, toggleDrawer }) {
           </ListItemIcon>
           <ListItemText primary="Ver Bonos" />
         </ListItemButton>
+        <ListItemButton onClick={() => navigate("/GenerateRepair/add")}>
+          <ListItemIcon>
+            <HomeIcon />
+          </ListItemIcon>
+          <ListItemText primary="Registrar Reparación" />
+        </ListItemButton>
         
       </List>
       <Divider />

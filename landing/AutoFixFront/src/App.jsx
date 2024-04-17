@@ -6,6 +6,7 @@ import AddEditVehicle from './components/AddEditVehicle';
 import ListVehicle from './components/ListVehicle';
 import AddBonuses from './components/AddBonuses';
 import UpdateBonuses from './components/UpdateBonuses';
+import CreateRepair from './components/CreateRepair';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
               <Route path="/vehicles/list" element={<ListVehicle/>} />
               <Route path ="/bonuses/add" element={<AddBonuses/>} />
               <Route path ="/bonuses/edit/:id" element={<UpdateBonuses/>} />
+              <Route path = "/GenerateRepair/add" element={<CreateRepair/>} />
             </Routes>
           </div>
       </Router>

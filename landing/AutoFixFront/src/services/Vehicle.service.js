@@ -23,4 +23,8 @@ const remove = id => {
 const get = id => {
     return httpCommon.get(`api/v1/vehicles/${id}`);
 }
-export default { getAll, create, update, remove, get, getPatente};
+
+const getAllPatentes = () => {
+    return httpCommon.get("api/v1/vehicles/patentes");
+}
+export default { getAll, create, update, remove, get, getPatente, getAllPatentes};

@@ -44,6 +44,8 @@ public class GenerateRepairsServices {
     public GenerateRepairsEntity saveGenerateRepairs(GenerateRepairsEntity generateRepairs){
         GenerateRepairsEntity Repairs = new GenerateRepairsEntity();
 
+        System.out.println(generateRepairs.getPatente_vehiculo());
+
         VehiclesEntity vehicle = vehiclesRepository.findByPatente(generateRepairs.getPatente_vehiculo()); //Busco el vehiculo por patente
         //obtenemos todas las reparaciones que se les realizó al vehiculo
         List<Long> ids_reparaciones = Arrays.stream(generateRepairs.getTipo_reparacion().split(","))

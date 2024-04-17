@@ -7,3 +7,8 @@ const generateRepairs = data => {
 const getGenerateRepairs = () => {
     return httpCommon.get("api/v1/genereateRepairs/");
 }
+
+export default {
+    generateRepairs,
+    getGenerateRepairs
+};

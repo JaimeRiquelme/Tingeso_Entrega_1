@@ -11,3 +11,5 @@ const create = data => {
 const getRepairs =() => {
     return httpCommon.get("api/v1/repairs/types");
 }
+
+export default { getAll, create, getRepairs};

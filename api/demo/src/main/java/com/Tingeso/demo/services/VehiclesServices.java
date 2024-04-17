@@ -31,4 +31,8 @@ public class VehiclesServices {
     public void deleteVehicle(long id){
         vehiclesRepository.deleteById(id);
     }
+
+    public String[] findAllPatente(){
+        return vehiclesRepository.findAllPatente();
+    }
 }

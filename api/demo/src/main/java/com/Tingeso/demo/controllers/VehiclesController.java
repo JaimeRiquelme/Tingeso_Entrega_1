@@ -43,5 +43,11 @@ public class VehiclesController {
         return ResponseEntity.ok("Vehiculo eliminado");
     }
 
+    @GetMapping("/patentes")
+    public ResponseEntity<String[]> findAllPatente(){
+        String[] patentes = vehiclesServices.findAllPatente();
+        return ResponseEntity.ok(patentes);
+    }
+
 
 }
