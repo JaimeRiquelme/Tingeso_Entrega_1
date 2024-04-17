@@ -14,6 +14,7 @@ const AddEditVehicle = () => {
   const [anio_fabricacion, setAnio_fabricacion] = useState("");
   const [tipo_motor, setTipo_motor] = useState("");
   const [numero_asientos, setNumero_asientos] = useState("");
+  const [kilometraje, setKilometraje] = useState("");
   const [titleVehicleForm, setTitleVehicleForm] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -31,6 +32,7 @@ const AddEditVehicle = () => {
       tipo_motor,
       numero_asientos,
       numero_reparaciones:0,
+      kilometraje
     };
 
     vehicleService
@@ -150,6 +152,17 @@ const AddEditVehicle = () => {
           required
         />
       </FormControl>
+      <FormControl fullWidth margin="normal">
+        <TextField
+          id="kilometraje"
+          label="Kiometraje"
+          type="number"
+          value={kilometraje}
+          variant="standard"
+          onChange={(e) => setKilometraje(e.target.value)}
+          required
+        />
+      </FormControl>
       <FormControl margin="normal">
         <Button
           variant="contained"
@@ -163,8 +176,9 @@ const AddEditVehicle = () => {
               tipo &&
               anio_fabricacion &&
               tipo_motor &&
-              numero_asientos &&
-              numero_reparaciones
+              numero_asientos &&           
+              kilometraje
+
             ) {
               saveVehicle(e);
             } else {

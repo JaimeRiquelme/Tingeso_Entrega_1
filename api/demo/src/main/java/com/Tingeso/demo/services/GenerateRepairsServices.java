@@ -1,15 +1,12 @@
 package com.Tingeso.demo.services;
 
-import com.Tingeso.demo.entities.GenerateRepairsEntity;
-import com.Tingeso.demo.entities.RepairsEntity;
-import com.Tingeso.demo.entities.VehiclesEntity;
-import com.Tingeso.demo.repositories.GenerateRepairsRepository;
-import com.Tingeso.demo.repositories.RepairsRepository;
-import com.Tingeso.demo.repositories.VehiclesRepository;
+import com.Tingeso.demo.entities.*;
+import com.Tingeso.demo.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -31,6 +28,12 @@ public class GenerateRepairsServices {
     @Autowired
     VehiclesRepository vehiclesRepository;
 
+    @Autowired
+    SurchargeMileageRepository surchargeMileageRepository;
+
+    @Autowired
+    SurchargeSeniorityRepository surchargeSeniorityRepository;
+
     //Metodo para obtener todas las reparaciones generadas
     public ArrayList<GenerateRepairsEntity> getGenerateRepairs(){
         return (ArrayList<GenerateRepairsEntity>) generateRepairsRepository.findAll();
@@ -40,6 +43,7 @@ public class GenerateRepairsServices {
 
     public GenerateRepairsEntity saveGenerateRepairs(GenerateRepairsEntity generateRepairs){
         GenerateRepairsEntity Repairs = new GenerateRepairsEntity();
+
         VehiclesEntity vehicle = vehiclesRepository.findByPatente(generateRepairs.getPatente_vehiculo()); //Busco el vehiculo por patente
         //obtenemos todas las reparaciones que se les realizó al vehiculo
         List<Long> ids_reparaciones = Arrays.stream(generateRepairs.getTipo_reparacion().split(","))
@@ -47,84 +51,18 @@ public class GenerateRepairsServices {
                 .collect(Collectors.toList());
 
         double monto = 0;
-        double MontoReparaciones = 0;
-        for (Long id : ids_reparaciones) {
-            RepairsEntity repair = repairsRepository.findById(id).orElse(null);
-            if (repair != null) {
-                if(vehicle.getTipo_motor().equals("Diesel")){
-                    MontoReparaciones += repair.getCost_diesel();
-                }else if (vehicle.getTipo_motor().equals("Gasolina")) {
-                    MontoReparaciones += repair.getCost_gasoline();
-                } else if (vehicle.getTipo_motor().equals("Hibrido")) {
-                    MontoReparaciones += repair.getCost_hybrid();
-                } else if (vehicle.getTipo_motor().equals("Electrico")) {
-                    MontoReparaciones += repair.getCost_electric();
-                }
-            }
-        }
-        // Continuación de tu código existente
+        double MontoReparaciones = calcularMontoReparaciones(vehicle, ids_reparaciones);
         int Reparaciones = vehicle.getNumero_reparaciones();
-        double descuento = 0;
-        if(Reparaciones > 0) {
-            if (Reparaciones >= 1 && Reparaciones <= 2) {
-                if (vehicle.getTipo_motor().equals("Diesel")) {
-                    descuento = 0.07;
-                } else if (vehicle.getTipo_motor().equals("Gasolina")) {
-                    descuento = 0.05;
-                } else if (vehicle.getTipo_motor().equals("Hibrido")) {
-                    descuento = 0.10;
-                } else if (vehicle.getTipo_motor().equals("Electrico")) {
-                    descuento = 0.08;
-                }
-            } else if (Reparaciones >= 3 && Reparaciones <= 5) {
-                if (vehicle.getTipo_motor().equals("Diesel")) {
-                    descuento = 0.12;
-                } else if (vehicle.getTipo_motor().equals("Gasolina")) {
-                    descuento = 0.10;
-                } else if (vehicle.getTipo_motor().equals("Hibrido")) {
-                    descuento = 0.15;
-                } else if (vehicle.getTipo_motor().equals("Electrico")) {
-                    descuento = 0.13;
-                }
-            } else if (Reparaciones >= 6 && Reparaciones <= 9) {
-                if (vehicle.getTipo_motor().equals("Diesel")) {
-                    descuento = 0.17;
-                } else if (vehicle.getTipo_motor().equals("Gasolina")) {
-                    descuento = 0.15;
-                } else if (vehicle.getTipo_motor().equals("Hibrido")) {
-                    descuento = 0.20;
-                } else if (vehicle.getTipo_motor().equals("Electrico")) {
-                    descuento = 0.18;
-                }
-            } else if (Reparaciones >= 10) {
-                if (vehicle.getTipo_motor().equals("Diesel")) {
-                    descuento = 0.22;
-                } else if (vehicle.getTipo_motor().equals("Gasolina")) {
-                    descuento = 0.20;
-                } else if (vehicle.getTipo_motor().equals("Hibrido")) {
-                    descuento = 0.25;
-                } else if (vehicle.getTipo_motor().equals("Electrico")) {
-                    descuento = 0.23;
-                }
-            }
+        double Descuento_Historial_Reparaciones = calcularDescuentoPorHistorial(vehicle.getTipo_motor(), Reparaciones);
 
-            MontoReparaciones = MontoReparaciones - (MontoReparaciones * descuento); //Calculo de descuento
-        }
+        double Descuento_Fecha_Hora_Ingreso = calcularDescuentoPorHora(generateRepairs.getFecha_ingreso_taller(), generateRepairs.getHora_ingreso_taller());
 
-        String fecha_Ingreso = generateRepairs.getFecha_ingreso_taller().toString();
-        DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
-        LocalDateTime ingreso_taller = LocalDateTime.parse(fecha_Ingreso, formatter);
+        double recargo_kilometraje = calculoRecargoKilometraje(vehicle);
+        System.out.println("Recargo Kilometraje: " + recargo_kilometraje);
 
-        DayOfWeek dia = ingreso_taller.getDayOfWeek();
-        if(dia == DayOfWeek.MONDAY || dia == DayOfWeek.THURSDAY){
-            //Verificamos la hora
-            LocalTime hora = generateRepairs.getHora_ingreso_taller();
-            if(hora.isAfter(LocalTime.of(9,0)) && hora.isBefore(LocalTime.of(12,0))){
-                MontoReparaciones = MontoReparaciones - (MontoReparaciones * 0.05); //Descuento por hora
-            }
-        }
+        double recargo_antiguedad = calculoRecargoAntiguedad(vehicle);
+        System.out.println("Recargo Antiguedad: " + recargo_antiguedad);
 
- 
 
 
 
@@ -155,4 +93,96 @@ public class GenerateRepairsServices {
 
 
     }
+
+    private double calcularMontoReparaciones(VehiclesEntity vehicle, List<Long> idsReparaciones) {
+        double montoReparaciones = 0.0;
+        for (Long id : idsReparaciones) {
+            RepairsEntity repair = repairsRepository.findById(id).orElse(null);
+            if (repair != null) {
+                switch (vehicle.getTipo_motor()) {
+                    case "Diesel":
+                        montoReparaciones += repair.getCost_diesel();
+                        break;
+                    case "Gasolina":
+                        montoReparaciones += repair.getCost_gasoline();
+                        break;
+                    case "Hibrido":
+                        montoReparaciones += repair.getCost_hybrid();
+                        break;
+                    case "Electrico":
+                        montoReparaciones += repair.getCost_electric();
+                        break;
+                }
+            }
+        }
+        return montoReparaciones;
+    }
+
+    private double calcularDescuentoPorHistorial(String tipoMotor, int numeroReparaciones) {
+        double descuento = 0.0;
+        if (numeroReparaciones > 0) {
+            if (numeroReparaciones < 3) {
+                descuento = (tipoMotor.equals("Diesel")) ? 0.07 : (tipoMotor.equals("Gasolina")) ? 0.05 : (tipoMotor.equals("Hibrido")) ? 0.10 : 0.08;
+            } else if (numeroReparaciones < 6) {
+                descuento = (tipoMotor.equals("Diesel")) ? 0.12 : (tipoMotor.equals("Gasolina")) ? 0.10 : (tipoMotor.equals("Hibrido")) ? 0.15 : 0.13;
+            } else if (numeroReparaciones < 10) {
+                descuento = (tipoMotor.equals("Diesel")) ? 0.17 : (tipoMotor.equals("Gasolina")) ? 0.15 : (tipoMotor.equals("Hibrido")) ? 0.20 : 0.18;
+            } else {
+                descuento = (tipoMotor.equals("Diesel")) ? 0.22 : (tipoMotor.equals("Gasolina")) ? 0.20 : (tipoMotor.equals("Hibrido")) ? 0.25 : 0.23;
+            }
+        }
+        return descuento;
+    }
+
+    private double calcularDescuentoPorHora(LocalDateTime fechaIngreso, LocalTime horaIngreso) {
+        if ((fechaIngreso.getDayOfWeek() == DayOfWeek.MONDAY || fechaIngreso.getDayOfWeek() == DayOfWeek.THURSDAY) &&
+                horaIngreso.isAfter(LocalTime.of(9, 0)) && horaIngreso.isBefore(LocalTime.of(12, 0))) {
+            return 0.05;
+        }
+        return 0.0;
+    }
+
+    private double calculoRecargoKilometraje(VehiclesEntity vehicle){
+        SurchargeMileageEntity surchargeMileage = surchargeMileageRepository.findByKilometraje(vehicle.getKilometraje());
+
+    if(vehicle.getTipo().equals("Sedan")){
+        return surchargeMileage.getSedan();
+    }else if(vehicle.getTipo().equals("Hatchback")){
+        return surchargeMileage.getHatchback();
+    }else if(vehicle.getTipo().equals("SUV")){
+        return surchargeMileage.getSuv();
+    }else if(vehicle.getTipo().equals("Pickup")){
+        return surchargeMileage.getPickup();
+    }else if(vehicle.getTipo().equals("Furgoneta")){
+        return surchargeMileage.getFurgoneta();
+    }else{
+        return 0;
+    }
+
+    }
+
+    private double calculoRecargoAntiguedad(VehiclesEntity vehicle){
+        LocalDate fechaActual = LocalDate.now();
+        int añoActual = fechaActual.getYear();
+        int añoFabricacion = Integer.parseInt(vehicle.getAnio_fabricacion()); // Convierte el año de fabricación de String a int.
+        int antiguedad = añoActual - añoFabricacion;
+
+        System.out.println("Antiguedad: " + antiguedad);
+        SurchargeSeniorityEntity surchargeSeniority = surchargeSeniorityRepository.findByAntiguedad(antiguedad);
+
+        if(vehicle.getTipo().equals("Sedan")){
+            return surchargeSeniority.getSedan();
+        }else if(vehicle.getTipo().equals("Hatchback")){
+            return surchargeSeniority.getHatchback();
+        }else if(vehicle.getTipo().equals("SUV")){
+            return surchargeSeniority.getSuv();
+        }else if(vehicle.getTipo().equals("Pickup")){
+            return surchargeSeniority.getPickup();
+        }else if(vehicle.getTipo().equals("Furgoneta")){
+            return surchargeSeniority.getFurgoneta();
+        }else{
+            return 0;
+        }
+    }
+
 }

@@ -82,6 +82,9 @@ const ListVehicle = () => {
                 <TableCell align="left" sx={{ fontWeight: "bold" }}>
                   Tipo Motor
                 </TableCell>
+                <TableCell align="left" sx={{ fontWeight: "bold" }}>
+                  Kilometraje
+                </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -98,6 +101,7 @@ const ListVehicle = () => {
                   <TableCell align="right">{vehicle.anio_fabricacion}</TableCell>
                   <TableCell align="right">{vehicle.tipo}</TableCell>
                   <TableCell align="right">{vehicle.tipo_motor}</TableCell>
+                  <TableCell align="right">{vehicle.kilometraje}</TableCell>
                   <TableCell>
                     
                     <Button

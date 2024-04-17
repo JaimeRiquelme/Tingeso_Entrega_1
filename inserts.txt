@@ -13,7 +13,7 @@ tambores, líneas de freno y reparación o reemplazo del cilindro maestro de fre
 (11, 'Parabrisas y Cristales', 'Reparación de pequeñas grietas en el parabrisas o reemplazo completo de parabrisas y ventanas dañadas.', 80000, 80000, 80000, 80000);
 
 
-INSERT INTO DiscountRepairs (reparaciones_minimas, reparaciones_maximas, gasolina, diesel, hibrido, electrico) VALUES
+INSERT INTO discount_repairs (reparaciones_minimas, reparaciones_maximas, gasolina, diesel, hibrido, electrico) VALUES
 (1, 2, 0.05, 0.07, 0.10, 0.08),
 (3, 5, 0.10, 0.12, 0.15, 0.13),
 (6, 9, 0.15, 0.17, 0.20, 0.18),
