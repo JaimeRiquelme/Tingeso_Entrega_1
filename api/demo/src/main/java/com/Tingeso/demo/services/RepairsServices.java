@@ -22,4 +22,9 @@ public class RepairsServices {
     public RepairsEntity saveRepair(RepairsEntity repair){
         return repairsRepository.save(repair);
     }
+
+    //Metodo para obtener los tipos de reparaciones
+    public String[] getTypes(){
+        return repairsRepository.getTypes();
+    }
 }

@@ -28,4 +28,10 @@ public class RepairsController {
         return ResponseEntity.ok(repairNew);
     }
 
+    @GetMapping("/types")
+    public ResponseEntity<String[]> getTypes() {
+        String[] types = repairsServices.getTypes();
+        return ResponseEntity.ok(types);
+    }
+
 }
