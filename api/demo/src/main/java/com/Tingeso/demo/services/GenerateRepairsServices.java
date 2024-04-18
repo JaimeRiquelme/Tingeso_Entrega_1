@@ -126,7 +126,7 @@ public class GenerateRepairsServices {
                     case "Gasolina":
                         montoReparaciones += repair.getCost_gasoline();
                         break;
-                    case "Hibrido":
+                    case "Híbrido":
                         montoReparaciones += repair.getCost_hybrid();
                         break;
                     case "Electrico":
@@ -142,13 +142,13 @@ public class GenerateRepairsServices {
         double descuento = 0.0;
         if (numeroReparaciones > 0) {
             if (numeroReparaciones < 3) {
-                descuento = (tipoMotor.equals("Diesel")) ? 0.07 : (tipoMotor.equals("Gasolina")) ? 0.05 : (tipoMotor.equals("Hibrido")) ? 0.10 : 0.08;
+                descuento = (tipoMotor.equals("Diesel")) ? 0.07 : (tipoMotor.equals("Gasolina")) ? 0.05 : (tipoMotor.equals("Híbrido")) ? 0.10 : 0.08;
             } else if (numeroReparaciones < 6) {
-                descuento = (tipoMotor.equals("Diesel")) ? 0.12 : (tipoMotor.equals("Gasolina")) ? 0.10 : (tipoMotor.equals("Hibrido")) ? 0.15 : 0.13;
+                descuento = (tipoMotor.equals("Diesel")) ? 0.12 : (tipoMotor.equals("Gasolina")) ? 0.10 : (tipoMotor.equals("Híbrido")) ? 0.15 : 0.13;
             } else if (numeroReparaciones < 10) {
-                descuento = (tipoMotor.equals("Diesel")) ? 0.17 : (tipoMotor.equals("Gasolina")) ? 0.15 : (tipoMotor.equals("Hibrido")) ? 0.20 : 0.18;
+                descuento = (tipoMotor.equals("Diesel")) ? 0.17 : (tipoMotor.equals("Gasolina")) ? 0.15 : (tipoMotor.equals("Híbrido")) ? 0.20 : 0.18;
             } else {
-                descuento = (tipoMotor.equals("Diesel")) ? 0.22 : (tipoMotor.equals("Gasolina")) ? 0.20 : (tipoMotor.equals("Hibrido")) ? 0.25 : 0.23;
+                descuento = (tipoMotor.equals("Diesel")) ? 0.22 : (tipoMotor.equals("Gasolina")) ? 0.20 : (tipoMotor.equals("Híbrido")) ? 0.25 : 0.23;
             }
         }
         return descuento;
