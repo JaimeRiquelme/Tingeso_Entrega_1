@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -45,63 +46,45 @@ public class GenerateRepairsServices {
     //Metodo para guardar una reparacion generada en la BD
 
     public GenerateRepairsEntity saveGenerateRepairs(GenerateRepairsEntity generateRepairs, boolean uso_bono){
-        GenerateRepairsEntity Repairs = new GenerateRepairsEntity();
+        // Obtener el vehículo por patente
+        VehiclesEntity vehicle = vehiclesRepository.findByPatente(generateRepairs.getPatente_vehiculo());
 
-        System.out.println(generateRepairs.getPatente_vehiculo());
-
-        VehiclesEntity vehicle = vehiclesRepository.findByPatente(generateRepairs.getPatente_vehiculo()); //Busco el vehiculo por patente
-        //obtenemos todas las reparaciones que se les realizó al vehiculo
+        // Obtener los IDs de reparación y calcular el monto de reparaciones
         List<Long> ids_reparaciones = Arrays.stream(generateRepairs.getTipo_reparacion().split(","))
                 .map(Long::parseLong)
                 .collect(Collectors.toList());
-
-        double monto = 0;
         double MontoReparaciones = calcularMontoReparaciones(vehicle, ids_reparaciones);
-        int Reparaciones = vehicle.getNumero_reparaciones();
-        double Descuento_Historial_Reparaciones = calcularDescuentoPorHistorial(vehicle.getTipo_motor(), Reparaciones);
 
-        double Descuento_Fecha_Hora_Ingreso = calcularDescuentoPorHora(generateRepairs.getFecha_ingreso_taller(), generateRepairs.getHora_ingreso_taller());
+        // Calcular descuentos y recargos
+        double Descuento_Historial_Reparaciones = calcularDescuentoPorHistorial(vehicle.getTipo_motor(), vehicle.getNumero_reparaciones()) * MontoReparaciones;
+        double Descuento_Fecha_Hora_Ingreso = calcularDescuentoPorHora(generateRepairs.getFecha_ingreso_taller(), generateRepairs.getHora_ingreso_taller()) * MontoReparaciones;
+        double recargo_kilometraje = calculoRecargoKilometraje(vehicle) * MontoReparaciones;
+        double recargo_antiguedad = calculoRecargoAntiguedad(vehicle) * MontoReparaciones;
+        double RecargoDiasRetraso = obtenerRecargoPorRetraso(generateRepairs.getFecha_salida_reparacion(), generateRepairs.getFecha_entrega_cliente()) * MontoReparaciones;
 
-        double recargo_kilometraje = calculoRecargoKilometraje(vehicle);
-        System.out.println("Recargo Kilometraje: " + recargo_kilometraje);
+        // Inicializar el monto de descuentos y recargos
+        double totalDescuentos = Descuento_Historial_Reparaciones + Descuento_Fecha_Hora_Ingreso;
+        double totalRecargos = recargo_kilometraje + recargo_antiguedad + RecargoDiasRetraso;
 
-        double recargo_antiguedad = calculoRecargoAntiguedad(vehicle);
-        System.out.println("Recargo Antiguedad: " + recargo_antiguedad);
-
-        if(uso_bono) {
-            double descuento_bono = obtenerDescuentoPorBono(vehicle);
-            if(descuento_bono == 0){
-                System.out.println("No hay bono disponible");
-            }else{
-                System.out.println("Descuento por bono: " + descuento_bono);
-            }
-        }else {
-            System.out.println("No uso bono");
+        // Verificar si se aplica descuento por bono
+        double descuento_bono = 0;
+        if (uso_bono) {
+            descuento_bono = obtenerDescuentoPorBono(vehicle);
+            // El descuento por bono se aplica directamente, ya que es un valor fijo en moneda
+            System.out.println("Descuento por bono aplicado: " + descuento_bono);
         }
 
+        // Calcular el IVA
+        double subtotal = MontoReparaciones + totalRecargos - totalDescuentos - descuento_bono;
+        double iva = calcularIVA(subtotal);
 
-        //Calculo total = [Suma(Reparaciones) + Recargos - Descuentos] + Iva
+        // Calcular el monto total
+        double monto = subtotal + iva;
 
-        //Suma(Reparaciones) = Suma de todas las reparaciones | Listo
+        // Crear la entidad de reparación generada
+        GenerateRepairsEntity Repairs = new GenerateRepairsEntity();
 
-        //Recargos = Suma de todos los recargos
-        //Recargo Kilometraje = Recargo por kilometraje | Listo
-        //Recargo Antiguedad = Recargo por antiguedad | Listo
-        //Recargo por Retraso en la recolección del vehículo = Recargo por retraso | Falta por implementar
-
-        //Descuentos = Suma de todos los descuentos
-        //Descuento por Historial de Reparaciones = Descuento por historial | Listo
-        //Descuento por dia de atencion = Descuento por dia de atencion | Listo
-        //Descuento por bono = Descuento por bono | Listo
-
-        //Todo: Implementar descuento por retraso en la recolección del vehículo
-        //Todo: Ordenar el código
-        //Todo: Implementar el IVA
-
-        //Iva = Suma de todos los ivas | Falta por implementar
-
-        //Calculo de monto total
-        monto = MontoReparaciones;
+        // Asignar los valores a la entidad
         Repairs.setMonto_total_reparacion((float) monto);
         Repairs.setFecha_ingreso_taller(generateRepairs.getFecha_ingreso_taller());
         Repairs.setHora_ingreso_taller(generateRepairs.getHora_ingreso_taller());
@@ -112,7 +95,20 @@ public class GenerateRepairsServices {
         Repairs.setHora_entrega_cliente(generateRepairs.getHora_entrega_cliente());
         Repairs.setPatente_vehiculo(generateRepairs.getPatente_vehiculo());
 
+        //Mostramos cada descuento y recargo
+        System.out.println("Monto total reparaciones: " + MontoReparaciones);
+        System.out.println("Descuento por historial de reparaciones: " + Descuento_Historial_Reparaciones);
+        System.out.println("Descuento por fecha y hora de ingreso: " + Descuento_Fecha_Hora_Ingreso);
+        System.out.println("Recargo por kilometraje: " + recargo_kilometraje);
+        System.out.println("Recargo por antiguedad: " + recargo_antiguedad);
+        System.out.println("Recargo por días de retraso: " + RecargoDiasRetraso);
+        System.out.println("Descuento por bono: " + descuento_bono);
+        System.out.println("Subtotal: " + subtotal);
+        System.out.println("IVA: " + iva);
+        System.out.println("Monto total: " + monto);
 
+
+        // Guardar la entidad en la BD
         return generateRepairsRepository.save(Repairs);
 
 
@@ -227,5 +223,14 @@ public class GenerateRepairsServices {
         }catch (Exception e){
             return 0;
         }
+    }
+
+    private double obtenerRecargoPorRetraso(LocalDateTime fechaSalidaReparacion, LocalDateTime fechaEntregaCliente){
+        long DiasRetraso = ChronoUnit.DAYS.between(fechaSalidaReparacion, fechaEntregaCliente);
+        return DiasRetraso * 0.05;
+    }
+
+    private double calcularIVA(double subtotal) {
+        return subtotal * 0.19;
     }
 }
