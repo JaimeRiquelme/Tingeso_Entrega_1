@@ -6,4 +6,6 @@ import com.Tingeso.demo.entities.BonusesEntity;
 
 @Repository
 public interface BonusesRepository extends JpaRepository<BonusesEntity, Long>{
+
+    BonusesEntity findByMarca(String marca);
 }

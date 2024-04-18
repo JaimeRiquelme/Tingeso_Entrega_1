@@ -34,6 +34,9 @@ public class GenerateRepairsServices {
     @Autowired
     SurchargeSeniorityRepository surchargeSeniorityRepository;
 
+    @Autowired
+    BonusesRepository bonusesRepository;
+
     //Metodo para obtener todas las reparaciones generadas
     public ArrayList<GenerateRepairsEntity> getGenerateRepairs(){
         return (ArrayList<GenerateRepairsEntity>) generateRepairsRepository.findAll();
@@ -66,7 +69,12 @@ public class GenerateRepairsServices {
         System.out.println("Recargo Antiguedad: " + recargo_antiguedad);
 
         if(uso_bono) {
-            System.out.println("Uso bono");
+            double descuento_bono = obtenerDescuentoPorBono(vehicle);
+            if(descuento_bono == 0){
+                System.out.println("No hay bono disponible");
+            }else{
+                System.out.println("Descuento por bono: " + descuento_bono);
+            }
         }else {
             System.out.println("No uso bono");
         }
@@ -193,4 +201,23 @@ public class GenerateRepairsServices {
         }
     }
 
+    private double obtenerDescuentoPorBono(VehiclesEntity vehicle){
+
+        String marca_vehiculo = vehicle.getMarca();
+        BonusesEntity bono = bonusesRepository.findByMarca(marca_vehiculo);
+
+        try{
+            if (bono != null) {
+                if (Integer.parseInt(bono.getDisponibilidad()) != 0) {
+                    return bono.getMonto();
+                }else {
+                    return 0;
+                }
+            }else {
+                return 0;
+            }
+        }catch (Exception e){
+            return 0;
+        }
+    }
 }
