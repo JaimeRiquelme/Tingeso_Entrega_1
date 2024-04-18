@@ -41,7 +41,7 @@ public class GenerateRepairsServices {
 
     //Metodo para guardar una reparacion generada en la BD
 
-    public GenerateRepairsEntity saveGenerateRepairs(GenerateRepairsEntity generateRepairs){
+    public GenerateRepairsEntity saveGenerateRepairs(GenerateRepairsEntity generateRepairs, boolean uso_bono){
         GenerateRepairsEntity Repairs = new GenerateRepairsEntity();
 
         System.out.println(generateRepairs.getPatente_vehiculo());
@@ -64,6 +64,12 @@ public class GenerateRepairsServices {
 
         double recargo_antiguedad = calculoRecargoAntiguedad(vehicle);
         System.out.println("Recargo Antiguedad: " + recargo_antiguedad);
+
+        if(uso_bono) {
+            System.out.println("Uso bono");
+        }else {
+            System.out.println("No uso bono");
+        }
 
 
 

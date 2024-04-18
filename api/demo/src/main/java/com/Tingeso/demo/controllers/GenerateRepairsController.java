@@ -23,9 +23,9 @@ public class GenerateRepairsController {
         return ResponseEntity.ok(generateRepairs);
     }
 
-    @PostMapping("/")
-    public ResponseEntity<GenerateRepairsEntity> saveGenerateRepair(@RequestBody GenerateRepairsEntity generateRepair) {
-        GenerateRepairsEntity generateRepairNew = generateRepairsServices.saveGenerateRepairs(generateRepair);
+    @PostMapping("/{uso_bono}")
+    public ResponseEntity<GenerateRepairsEntity> saveGenerateRepair(@RequestBody GenerateRepairsEntity generateRepair,@PathVariable boolean uso_bono) {
+        GenerateRepairsEntity generateRepairNew = generateRepairsServices.saveGenerateRepairs(generateRepair,uso_bono);
         return ResponseEntity.ok(generateRepairNew);
     }
 }

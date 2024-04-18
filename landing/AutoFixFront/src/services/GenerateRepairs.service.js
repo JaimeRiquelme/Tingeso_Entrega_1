@@ -1,7 +1,7 @@
 import httpCommon from "../http-common";
 
-const generateRepairs = data => {
-    return httpCommon.post("api/v1/generateRepairs/", data);
+const generateRepairs = (data,uso_bono) => {
+    return httpCommon.post(`api/v1/generateRepairs/${uso_bono}`, data);
 }
 
 const getGenerateRepairs = () => {

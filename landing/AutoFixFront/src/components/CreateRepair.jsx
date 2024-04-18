@@ -10,6 +10,7 @@ import { Select, MenuItem, InputLabel } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import e from "cors";
 import { Checkbox, ListItemText, OutlinedInput } from "@mui/material";
+import { FormControlLabel } from "@mui/material";
 
 const CreateRepair = () => {
   const [fecha_ingreso_taller, setFechaIngresoTaller] = useState("");
@@ -23,6 +24,7 @@ const CreateRepair = () => {
   const [hora_entrega_cliente, setHoraEntregaCliente] = useState("");
   const [patente_vehiculo, setPatenteVehiculo] = useState("");
   const [patentes, setPatentes] = useState([]);
+  const [usar_bono, setUsarBono] = useState(false);
 
   useEffect(() => {
     const cargarPatentes = async () => {
@@ -87,7 +89,7 @@ const CreateRepair = () => {
     //mostramos por consola todos los datos que se enviaran
     console.log(GenerateRepair);
 
-    GenerateRepairService.generateRepairs(GenerateRepair)
+    GenerateRepairService.generateRepairs(GenerateRepair, usar_bono)
       .then((response) => {
         console.log("Reparacion creada con éxito", response.data);
         //navigate("/repairs/List");
@@ -226,6 +228,19 @@ const CreateRepair = () => {
             </MenuItem>
           ))}
         </Select>
+      </FormControl>
+
+      <FormControl fullWidth margin="normal">
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={usar_bono}
+              onChange={(e) => setUsarBono(e.target.checked)}
+              name="usar_bono"
+            />
+          }
+          label="Usar bono (Solo se aplicará si está disponible)"
+        />
       </FormControl>
 
       <Button
