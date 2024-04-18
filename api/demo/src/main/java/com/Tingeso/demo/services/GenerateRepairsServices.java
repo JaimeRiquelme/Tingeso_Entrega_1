@@ -80,17 +80,25 @@ public class GenerateRepairsServices {
         }
 
 
-
-
-
-
-
-
         //Calculo total = [Suma(Reparaciones) + Recargos - Descuentos] + Iva
-        //Suma(Reparaciones) = Suma de todas las reparaciones
+
+        //Suma(Reparaciones) = Suma de todas las reparaciones | Listo
+
         //Recargos = Suma de todos los recargos
+        //Recargo Kilometraje = Recargo por kilometraje | Listo
+        //Recargo Antiguedad = Recargo por antiguedad | Listo
+        //Recargo por Retraso en la recolección del vehículo = Recargo por retraso | Falta por implementar
+
         //Descuentos = Suma de todos los descuentos
-        //Iva = Suma de todos los ivas
+        //Descuento por Historial de Reparaciones = Descuento por historial | Listo
+        //Descuento por dia de atencion = Descuento por dia de atencion | Listo
+        //Descuento por bono = Descuento por bono | Listo
+
+        //Todo: Implementar descuento por retraso en la recolección del vehículo
+        //Todo: Ordenar el código
+        //Todo: Implementar el IVA
+
+        //Iva = Suma de todos los ivas | Falta por implementar
 
         //Calculo de monto total
         monto = MontoReparaciones;
