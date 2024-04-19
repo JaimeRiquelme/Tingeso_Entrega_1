@@ -68,7 +68,7 @@ public class DiscountRepairsTest {
         discountRepairsEntity.setHibrido(0.3f);
         discountRepairsEntity.setElectrico(0.4f);
 
-        given(discountRepairsServices.findByIdDiscount(1)).willReturn(discountRepairsEntity);
+        given(discountRepairsServices.findById(1)).willReturn(discountRepairsEntity);
 
         mockMvc.perform(get("/api/v1/discountrepairs/1"))
                 .andExpect(status().isOk())

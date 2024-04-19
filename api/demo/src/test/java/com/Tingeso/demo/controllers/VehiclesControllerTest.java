@@ -128,7 +128,6 @@ public class VehiclesControllerTest {
     @Test
     public void saveVehicle_ShouldReturnVehicle() throws Exception{
         //Creamos un nuevo vehiculo con todos los atributos y kilometraje
-
         VehiclesEntity vehicle = new VehiclesEntity(1,
                 "AB1234",
                 "Toyota",
@@ -144,7 +143,7 @@ public class VehiclesControllerTest {
 
         mockMvc.perform(post("/api/v1/vehicles/")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"id\":1,\"patente\":\"AB1234\",\"marca\":\"Toyota\",\"modelo\":\"Yaris\",\"tipo\":\"Sedan\",\"anio_fabricacion\":\"2021\",\"tipo_motor\":\"Gasolina\",\"numero_asientos\":\"5\",\"numero_reparaciones\":0}"))
+                .content("{\"id\":1,\"patente\":\"AB1234\",\"marca\":\"Toyota\",\"modelo\":\"Yaris\",\"tipo\":\"Sedan\",\"anio_fabricacion\":\"2021\",\"tipo_motor\":\"Gasolina\",\"numero_asientos\":\"5\",\"numero_reparaciones\":0,\"kilometraje\":1000}"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.patente", is("AB1234")));
@@ -183,5 +182,19 @@ public class VehiclesControllerTest {
                 .andExpect(jsonPath("$.patente", is("AB1234")));
     }
 
+    //test para obtener todas las patentes
+    @Test
+    public void findAllPatente_ShouldReturnPatentes() throws Exception{
+        String[] patentes = {"AB1234", "CD5678"};
+
+        given(vehiclesServices.findAllPatente()).willReturn(patentes);
+
+        mockMvc.perform(get("/api/v1/vehicles/patentes"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$", hasSize(2)))
+                .andExpect(jsonPath("$[0]", is("AB1234")))
+                .andExpect(jsonPath("$[1]", is("CD5678")));
+    }
 
 }
