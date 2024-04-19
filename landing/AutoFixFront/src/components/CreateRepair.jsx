@@ -3,14 +3,13 @@ import VehicleService from "../services/Vehicle.service";
 import RepairService from "../services/Repairs.service";
 
 import { useState, useEffect } from "react";
-import { Link, useParams, useNavigate } from "react-router-dom";
 import { Box, FormControl, TextField, Button } from "@mui/material";
 import SaveIcon from "@mui/icons-material/Save";
 import { Select, MenuItem, InputLabel } from "@mui/material";
-import Typography from "@mui/material/Typography";
-import e from "cors";
 import { Checkbox, ListItemText, OutlinedInput } from "@mui/material";
 import { FormControlLabel } from "@mui/material";
+import { useNavigate } from 'react-router-dom';
+
 
 const CreateRepair = () => {
   const [fecha_ingreso_taller, setFechaIngresoTaller] = useState("");
@@ -25,6 +24,8 @@ const CreateRepair = () => {
   const [patente_vehiculo, setPatenteVehiculo] = useState("");
   const [patentes, setPatentes] = useState([]);
   const [usar_bono, setUsarBono] = useState(false);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const cargarPatentes = async () => {
@@ -92,7 +93,7 @@ const CreateRepair = () => {
     GenerateRepairService.generateRepairs(GenerateRepair, usar_bono)
       .then((response) => {
         console.log("Reparacion creada con éxito", response.data);
-        //navigate("/repairs/List");
+        navigate("/GenerateRepair/ViewNewRepair", {state: {repairId : response.data.id}})
       })
       .catch((error) => {
         console.log("Error al crear la reparacion", error);

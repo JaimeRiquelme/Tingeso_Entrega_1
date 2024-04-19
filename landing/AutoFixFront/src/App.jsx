@@ -8,6 +8,7 @@ import AddBonuses from './components/AddBonuses';
 import UpdateBonuses from './components/UpdateBonuses';
 import CreateRepair from './components/CreateRepair';
 import AVGHourReport from './components/AVGHourReport';
+import ViewNewRepair from './components/ViewNewRepair';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
               <Route path ="/bonuses/edit/:id" element={<UpdateBonuses/>} />
               <Route path = "/GenerateRepair/add" element={<CreateRepair/>} />
               <Route path = "/GenerateRepair/AVGHourReport" element={<AVGHourReport/>} />
+              <Route path = "/GenerateRepair/ViewNewRepair" element={<ViewNewRepair/>} />
             </Routes>
           </div>
       </Router>

@@ -10,20 +10,11 @@ import java.util.List;
 @Repository
 public interface GenerateRepairsRepository extends JpaRepository<GenerateRepairsEntity, Long>{
 
-    /*SELECT
-    V.marca,
-    AVG(EXTRACT(EPOCH FROM (R.fecha_salida_reparacion - R.fecha_ingreso_taller)) / 3600) AS Promedio_Horas
-FROM
-    Reparaciones R
-JOIN
-    Vehiculos V ON R.patente_vehiculo = V.patente
-GROUP BY
-    V.marca;
-
-
-     */
     @Query(value = "SELECT V.marca, AVG(EXTRACT(EPOCH FROM (R.fecha_salida_reparacion - R.fecha_ingreso_taller)) / 3600) AS Promedio_Horas FROM Reparaciones R JOIN Vehiculos V ON R.patente_vehiculo = V.patente GROUP BY V.marca", nativeQuery = true)
     public List<Object[]> getPromedioHorasPorMarca();
+
+    //obtener una reparacion por el id de la reparacion con JPA
+    public GenerateRepairsEntity findById(int idReparacion);
 
 
 

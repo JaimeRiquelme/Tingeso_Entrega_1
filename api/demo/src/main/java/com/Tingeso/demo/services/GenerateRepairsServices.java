@@ -238,4 +238,9 @@ public class GenerateRepairsServices {
     public List<Object[]> getPromedioHorasPorMarca(){
         return generateRepairsRepository.getPromedioHorasPorMarca();
     }
+
+    //Creamos la funcion para obtener una reparacion por el id de la reparacion
+    public GenerateRepairsEntity getGenerateRepairsById(int idReparacion){
+        return generateRepairsRepository.findById(idReparacion);
+    }
 }

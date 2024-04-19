@@ -34,4 +34,10 @@ public class GenerateRepairsController {
         List<Object[]> promedioHorasPorMarca = generateRepairsServices.getPromedioHorasPorMarca();
         return ResponseEntity.ok(promedioHorasPorMarca);
     }
+
+    @GetMapping("/{idReparacion}")
+    public ResponseEntity<GenerateRepairsEntity> getGenerateRepair(@PathVariable int idReparacion) {
+        GenerateRepairsEntity generateRepair = generateRepairsServices.getGenerateRepairsById(idReparacion);
+        return ResponseEntity.ok(generateRepair);
+    }
 }
