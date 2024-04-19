@@ -11,10 +11,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -45,7 +42,7 @@ public class GenerateRepairsServices {
 
     //Metodo para guardar una reparacion generada en la BD
 
-    public GenerateRepairsEntity saveGenerateRepairs(GenerateRepairsEntity generateRepairs, boolean uso_bono){
+    public Map<String,Object> saveGenerateRepairs(GenerateRepairsEntity generateRepairs, boolean uso_bono){
         // Obtener el vehículo por patente
         VehiclesEntity vehicle = vehiclesRepository.findByPatente(generateRepairs.getPatente_vehiculo());
 
@@ -99,20 +96,22 @@ public class GenerateRepairsServices {
         Repairs.setPatente_vehiculo(generateRepairs.getPatente_vehiculo());
 
         //Mostramos cada descuento y recargo
-        System.out.println("Monto total reparaciones: " + MontoReparaciones);
-        System.out.println("Descuento por historial de reparaciones: " + Descuento_Historial_Reparaciones);
-        System.out.println("Descuento por fecha y hora de ingreso: " + Descuento_Fecha_Hora_Ingreso);
-        System.out.println("Recargo por kilometraje: " + recargo_kilometraje);
-        System.out.println("Recargo por antiguedad: " + recargo_antiguedad);
-        System.out.println("Recargo por días de retraso: " + RecargoDiasRetraso);
-        System.out.println("Descuento por bono: " + descuento_bono);
-        System.out.println("Subtotal: " + subtotal);
-        System.out.println("IVA: " + iva);
-        System.out.println("Monto total: " + monto);
+
 
 
         // Guardar la entidad en la BD
-        return generateRepairsRepository.save(Repairs);
+        generateRepairsRepository.save(Repairs);
+        Map<String, Object> response = new HashMap<>();
+        response.put("generateRepair", Repairs);
+        response.put("totalDescuentos", totalDescuentos);
+        response.put("totalRecargos", totalRecargos);
+
+        //mostramos el map a ver si se guarda correctamente
+        System.out.println(response);
+
+
+        return response;
+
 
 
     }

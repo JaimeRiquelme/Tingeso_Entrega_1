@@ -60,7 +60,7 @@ const CreateRepair = () => {
     setTiposReparacionSeleccionados(
       typeof value === "string" ? value.split(",") : value
     );
-    
+
   };
 
   const saveCreateRepair = (e) => {
@@ -94,7 +94,14 @@ const CreateRepair = () => {
     GenerateRepairService.generateRepairs(GenerateRepair, usar_bono)
       .then((response) => {
         console.log("Reparacion creada con éxito", response.data);
-        navigate("/GenerateRepair/ViewNewRepair", {state: {repairId : response.data.id}})
+        console.log("Total de Descuentos recibidos:", response.data.totalDescuentos);
+        console.log("Total de Recargos recibidos:", response.data.totalRecargos);
+
+        navigate("/GenerateRepair/ViewNewRepair", { state: {
+          repairId: response.data.generateRepair.id,
+          totalDescuentos: response.data.totalDescuentos,
+          totalRecargos: response.data.totalRecargos
+         } })
       })
       .catch((error) => {
         console.log("Error al crear la reparacion", error);

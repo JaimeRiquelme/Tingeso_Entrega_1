@@ -7,9 +7,12 @@ import { Grid, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
 
+
 const ViewNewRepair = () => {
   const location = useLocation();
   const repairId = location.state.repairId;
+  const TotalDescuento = Math.round(location.state.totalDescuentos);
+  const TotalRecargos = Math.round(location.state.totalRecargos);
   const [repair, setRepair] = useState({});
 
   const navigate = useNavigate();
@@ -20,7 +23,6 @@ const ViewNewRepair = () => {
         repairId
       );
       setRepair(response.data);
-      console.log(response.data);
     } catch (error) {
       console.log("Error al cargar la reparación", error);
     }
@@ -31,6 +33,7 @@ const ViewNewRepair = () => {
   }, []);
 
   return (
+
     <Card>
       <CardContent>
         <Typography variant="h5" component="h2">
@@ -103,11 +106,32 @@ const ViewNewRepair = () => {
               {repair.tipo_reparacion}
             </Typography>
           </Grid>
-          <Grid item xs={12} md={6}>
-            <Typography color="textSecondary">Monto total</Typography>
-            <Typography variant="body2" component="p">
-              {repair.monto_total_reparacion}
-            </Typography>
+          <Grid item xs={12}>
+            <Card variant="outlined" style={{ backgroundColor: "#f5f5f5", padding: "16px", marginTop: "16px" }}>
+              <Typography variant="h6" gutterBottom>
+                Resumen Financiero
+              </Typography>
+              <Grid container spacing={2}>
+                <Grid item xs={12} sm={4}>
+                  <Typography color="textSecondary">Total Descuento</Typography>
+                  <Typography variant="body2" component="p">
+                    {TotalDescuento}
+                  </Typography>
+                </Grid>
+                <Grid item xs={12} sm={4}>
+                  <Typography color="textSecondary">Total Recargo</Typography>
+                  <Typography variant="body2" component="p">
+                    {TotalRecargos}
+                  </Typography>
+                </Grid>
+                <Grid item xs={12} sm={4}>
+                  <Typography color="textSecondary">Monto total</Typography>
+                  <Typography variant="body2" component="p">
+                    {repair.monto_total_reparacion}
+                  </Typography>
+                </Grid>
+              </Grid>
+            </Card>
           </Grid>
           <Grid container justifyContent="center" style={{ marginTop: "20px" }}>
             <Grid item>

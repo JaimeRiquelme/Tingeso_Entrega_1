@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/generateRepairs")
@@ -24,10 +25,11 @@ public class GenerateRepairsController {
     }
 
     @PostMapping("/{uso_bono}")
-    public ResponseEntity<GenerateRepairsEntity> saveGenerateRepair(@RequestBody GenerateRepairsEntity generateRepair,@PathVariable boolean uso_bono) {
-        GenerateRepairsEntity generateRepairNew = generateRepairsServices.saveGenerateRepairs(generateRepair,uso_bono);
-        return ResponseEntity.ok(generateRepairNew);
+    public ResponseEntity<Map<String, Object>> saveGenerateRepair(@RequestBody GenerateRepairsEntity generateRepair, @PathVariable boolean uso_bono) {
+        Map<String, Object> response = generateRepairsServices.saveGenerateRepairs(generateRepair, uso_bono);
+        return ResponseEntity.ok(response);
     }
+
 
     @GetMapping("/promedioHorasPorMarca")
     public ResponseEntity<List<Object[]>> getPromedioHorasPorMarca() {
