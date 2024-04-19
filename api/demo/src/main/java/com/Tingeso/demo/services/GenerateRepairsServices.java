@@ -233,4 +233,9 @@ public class GenerateRepairsServices {
     private double calcularIVA(double subtotal) {
         return subtotal * 0.19;
     }
+
+    //Creamos la funcion para usar el reporte de promedio horas marca
+    public List<Object[]> getPromedioHorasPorMarca(){
+        return generateRepairsRepository.getPromedioHorasPorMarca();
+    }
 }

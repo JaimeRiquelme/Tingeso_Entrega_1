@@ -28,4 +28,10 @@ public class GenerateRepairsController {
         GenerateRepairsEntity generateRepairNew = generateRepairsServices.saveGenerateRepairs(generateRepair,uso_bono);
         return ResponseEntity.ok(generateRepairNew);
     }
+
+    @GetMapping("/promedioHorasPorMarca")
+    public ResponseEntity<List<Object[]>> getPromedioHorasPorMarca() {
+        List<Object[]> promedioHorasPorMarca = generateRepairsServices.getPromedioHorasPorMarca();
+        return ResponseEntity.ok(promedioHorasPorMarca);
+    }
 }

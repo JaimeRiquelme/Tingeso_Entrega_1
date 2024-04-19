@@ -8,7 +8,12 @@ const getGenerateRepairs = () => {
     return httpCommon.get("api/v1/genereateRepairs/");
 }
 
+const getReportAvgHours = () => {
+    return httpCommon.get("api/v1/generateRepairs/promedioHorasPorMarca");
+}
+
 export default {
     generateRepairs,
-    getGenerateRepairs
+    getGenerateRepairs,
+    getReportAvgHours
 };
