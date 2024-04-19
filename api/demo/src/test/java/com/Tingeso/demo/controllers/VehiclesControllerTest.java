@@ -58,6 +58,33 @@ public class VehiclesControllerTest {
     // Test para listar vehiculos y verificar que se retorne una lista de vehiculos
     @Test
     public void listVehicles_ShouldReturnVehicles() throws Exception{
+        /*
+        *  @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(unique = true, nullable = false)
+    private long id;
+
+    @Column(unique = true, nullable = false)
+    private String patente;
+
+    private String marca;
+
+    private String modelo;
+
+    private String tipo;
+
+    private String anio_fabricacion;
+
+    private String tipo_motor;
+
+    private String numero_asientos;
+
+    private int numero_reparaciones;
+
+    private int kilometraje;*/
+
+
+        //Creamos un vehiculo con todos los atributos y kilometraje
         VehiclesEntity vehicle1 = new VehiclesEntity(1,
                 "AB1234",
                 "Toyota",
@@ -66,17 +93,20 @@ public class VehiclesControllerTest {
                 "2021",
                 "Gasolina",
                 "5",
-                0);
+                0,
+                1000);
 
+        //Creamos un vehiculo con todos los atributos y kilometraje
         VehiclesEntity vehicle2 = new VehiclesEntity(2,
                 "CD5678",
                 "Nissan",
-                "Sentra",
+                "Versa",
                 "Sedan",
                 "2021",
                 "Gasolina",
                 "5",
-                0);
+                0,
+                2000);
 
         List<VehiclesEntity> vehicleList = new ArrayList<>(Arrays.asList(vehicle1, vehicle2));
 
@@ -97,6 +127,8 @@ public class VehiclesControllerTest {
 
     @Test
     public void saveVehicle_ShouldReturnVehicle() throws Exception{
+        //Creamos un nuevo vehiculo con todos los atributos y kilometraje
+
         VehiclesEntity vehicle = new VehiclesEntity(1,
                 "AB1234",
                 "Toyota",
@@ -105,7 +137,8 @@ public class VehiclesControllerTest {
                 "2021",
                 "Gasolina",
                 "5",
-                0);
+                0,
+                1000);
 
         given(vehiclesServices.saveVehicle(vehicle)).willReturn(vehicle);
 
@@ -130,6 +163,7 @@ public class VehiclesControllerTest {
     //test para obtener un vehiculo por patente
     @Test
     public void getVehicleByPatente_ShouldReturnVehicle() throws Exception{
+        //Creamos un vehiculo con todos los atributos y kilometraje
         VehiclesEntity vehicle = new VehiclesEntity(1,
                 "AB1234",
                 "Toyota",
@@ -138,7 +172,8 @@ public class VehiclesControllerTest {
                 "2021",
                 "Gasolina",
                 "5",
-                0);
+                0,
+                1000);
 
         given(vehiclesServices.getVehiclesByPatente("AB1234")).willReturn(vehicle);
 

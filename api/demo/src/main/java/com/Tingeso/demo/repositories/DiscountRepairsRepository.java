@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface DiscountRepairsRepository extends JpaRepository<DiscountRepairsEntity, Long> {
+    DiscountRepairsEntity findByIdDiscount(int idDiscount);
 }
