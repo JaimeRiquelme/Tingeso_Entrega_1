@@ -15,7 +15,7 @@ public class DiscountRepairsController {
 
     @GetMapping("/{id}")
     public DiscountRepairsEntity findByIdDiscount(@PathVariable("id") int idDiscount) {
-        return discountRepairsServices.findByIdDiscount(idDiscount);
+        return discountRepairsServices.findById(idDiscount);
     }
 
 

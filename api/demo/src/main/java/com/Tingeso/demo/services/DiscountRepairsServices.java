@@ -10,8 +10,8 @@ public class DiscountRepairsServices {
     @Autowired
     DiscountRepairsRepository discountRepairsRepository;
 
-    public DiscountRepairsEntity findByIdDiscount(int idDiscount){
-        return discountRepairsRepository.findByIdDiscount(idDiscount);
+    public DiscountRepairsEntity findById(int idDiscount){
+        return discountRepairsRepository.findById(idDiscount);
     }
 
     public DiscountRepairsEntity saveDiscountRepairs(DiscountRepairsEntity discountRepairsEntity){
