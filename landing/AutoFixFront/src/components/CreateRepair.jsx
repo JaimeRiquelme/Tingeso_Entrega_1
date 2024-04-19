@@ -96,11 +96,17 @@ const CreateRepair = () => {
         console.log("Reparacion creada con éxito", response.data);
         console.log("Total de Descuentos recibidos:", response.data.totalDescuentos);
         console.log("Total de Recargos recibidos:", response.data.totalRecargos);
+        console.log("Descuento por bono:", response.data.descuentoBono)
+        console.log("Iva:", response.data.iva)
+        console.log("Monto Reparaciones:", response.data.montoReparaciones)
 
         navigate("/GenerateRepair/ViewNewRepair", { state: {
           repairId: response.data.generateRepair.id,
           totalDescuentos: response.data.totalDescuentos,
-          totalRecargos: response.data.totalRecargos
+          totalRecargos: response.data.totalRecargos,
+          descuentoBono: response.data.descuentoBono,
+          iva: response.data.iva,
+          montoReparaciones: response.data.montoReparaciones
          } })
       })
       .catch((error) => {

@@ -13,6 +13,10 @@ const ViewNewRepair = () => {
   const repairId = location.state.repairId;
   const TotalDescuento = Math.round(location.state.totalDescuentos);
   const TotalRecargos = Math.round(location.state.totalRecargos);
+  const DescuentoBono = Math.round(location.state.descuentoBono);
+  const Iva = Math.round(location.state.iva);
+  const MontoReparaciones = Math.round(location.state.montoReparaciones);
+
   const [repair, setRepair] = useState({});
 
   const navigate = useNavigate();
@@ -122,6 +126,24 @@ const ViewNewRepair = () => {
                   <Typography color="textSecondary">Total Recargo</Typography>
                   <Typography variant="body2" component="p">
                     {TotalRecargos}
+                  </Typography>
+                </Grid>
+                <Grid item xs={12} sm={4}>
+                  <Typography color="textSecondary">Descuento Bono</Typography>
+                  <Typography variant="body2" component="p">
+                    {DescuentoBono}
+                  </Typography>
+                </Grid>
+                <Grid item xs={12} sm={4}>
+                  <Typography color="textSecondary">Iva</Typography>
+                  <Typography variant="body2" component="p">
+                    {Iva}
+                  </Typography>
+                </Grid>
+                <Grid item xs={12} sm={4}>
+                  <Typography color="textSecondary">Monto Reparaciones</Typography>
+                  <Typography variant="body2" component="p">
+                    {MontoReparaciones}
                   </Typography>
                 </Grid>
                 <Grid item xs={12} sm={4}>

@@ -96,6 +96,14 @@ public class GenerateRepairsServices {
         Repairs.setPatente_vehiculo(generateRepairs.getPatente_vehiculo());
 
         //Mostramos cada descuento y recargo
+        System.out.println("Descuento por historial de reparaciones: " + Descuento_Historial_Reparaciones);
+        System.out.println("Descuento por fecha y hora de ingreso: " + Descuento_Fecha_Hora_Ingreso);
+        System.out.println("Recargo por kilometraje: " + recargo_kilometraje);
+        System.out.println("Recargo por antiguedad: " + recargo_antiguedad);
+        System.out.println("Recargo por dias de retraso: " + RecargoDiasRetraso);
+        System.out.println("Descuento por bono: " + descuento_bono);
+        System.out.println("IVA: " + iva);
+        System.out.println("Monto total: " + monto);
 
 
 
@@ -105,9 +113,12 @@ public class GenerateRepairsServices {
         response.put("generateRepair", Repairs);
         response.put("totalDescuentos", totalDescuentos);
         response.put("totalRecargos", totalRecargos);
+        response.put("descuentoBono", descuento_bono);
+        response.put("iva", iva);
+        response.put("montoReparaciones", MontoReparaciones);
 
-        //mostramos el map a ver si se guarda correctamente
-        System.out.println(response);
+
+
 
 
         return response;
