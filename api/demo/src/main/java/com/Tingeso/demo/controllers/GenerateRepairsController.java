@@ -48,4 +48,10 @@ public class GenerateRepairsController {
         List<Object[]> GenerateGroupByTipoReparacion = generateRepairsServices.GenerateGroupByTipoReparacion();
         return ResponseEntity.ok(GenerateGroupByTipoReparacion);
     }
+
+    @GetMapping("/GenerateGroupByCombustible")
+    public ResponseEntity<List<Object[]>> GenerateGroupByCombustible() {
+        List<Object[]> GenerateGroupByCombustible = generateRepairsServices.GenerateGroupByCombustible();
+        return ResponseEntity.ok(GenerateGroupByCombustible);
+    }
 }

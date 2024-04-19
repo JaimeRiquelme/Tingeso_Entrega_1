@@ -261,4 +261,9 @@ public class GenerateRepairsServices {
     public List<Object[]> GenerateGroupByTipoReparacion(){
         return generateRepairsRepository.GenerateGroupByTipoReparacion();
     }
+
+    //Creamos la funcion para obtener el reporte de reparaciones agrupadas por tipo de combustible
+    public List<Object[]> GenerateGroupByCombustible(){
+        return generateRepairsRepository.GenerateGroupByCombustible();
+    }
 }
