@@ -60,6 +60,7 @@ const CreateRepair = () => {
     setTiposReparacionSeleccionados(
       typeof value === "string" ? value.split(",") : value
     );
+    
   };
 
   const saveCreateRepair = (e) => {

@@ -40,4 +40,10 @@ public class GenerateRepairsController {
         GenerateRepairsEntity generateRepair = generateRepairsServices.getGenerateRepairsById(idReparacion);
         return ResponseEntity.ok(generateRepair);
     }
+
+    @GetMapping("/GenerateGroupByTipoReparacion")
+    public ResponseEntity<List<Object[]>> GenerateGroupByTipoReparacion() {
+        List<Object[]> GenerateGroupByTipoReparacion = generateRepairsServices.GenerateGroupByTipoReparacion();
+        return ResponseEntity.ok(GenerateGroupByTipoReparacion);
+    }
 }

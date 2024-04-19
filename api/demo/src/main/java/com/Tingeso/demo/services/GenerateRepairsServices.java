@@ -52,7 +52,10 @@ public class GenerateRepairsServices {
         // Obtener los IDs de reparación y calcular el monto de reparaciones
         List<Long> ids_reparaciones = Arrays.stream(generateRepairs.getTipo_reparacion().split(","))
                 .map(Long::parseLong)
+                .sorted()
                 .collect(Collectors.toList());
+
+        System.out.println("IDs de reparaciones: " + ids_reparaciones);
         double MontoReparaciones = calcularMontoReparaciones(vehicle, ids_reparaciones);
 
         // Calcular descuentos y recargos
@@ -88,7 +91,7 @@ public class GenerateRepairsServices {
         Repairs.setMonto_total_reparacion((float) monto);
         Repairs.setFecha_ingreso_taller(generateRepairs.getFecha_ingreso_taller());
         Repairs.setHora_ingreso_taller(generateRepairs.getHora_ingreso_taller());
-        Repairs.setTipo_reparacion(generateRepairs.getTipo_reparacion());
+        Repairs.setTipo_reparacion(ids_reparaciones.stream().map(String::valueOf).collect(Collectors.joining(",")));
         Repairs.setFecha_salida_reparacion(generateRepairs.getFecha_salida_reparacion());
         Repairs.setHora_salida_reparacion(generateRepairs.getHora_salida_reparacion());
         Repairs.setFecha_entrega_cliente(generateRepairs.getFecha_entrega_cliente());
@@ -242,5 +245,10 @@ public class GenerateRepairsServices {
     //Creamos la funcion para obtener una reparacion por el id de la reparacion
     public GenerateRepairsEntity getGenerateRepairsById(int idReparacion){
         return generateRepairsRepository.findById(idReparacion);
+    }
+
+    //Creamos la funcion para obtener el reporte de reparaciones agrupadas por tipo de reparacion
+    public List<Object[]> GenerateGroupByTipoReparacion(){
+        return generateRepairsRepository.GenerateGroupByTipoReparacion();
     }
 }
