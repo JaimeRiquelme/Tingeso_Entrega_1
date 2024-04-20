@@ -167,7 +167,7 @@ public class GenerateRepairsServices {
         return descuento;
     }
 
-    private double calcularDescuentoPorHora(LocalDateTime fechaIngreso, LocalTime horaIngreso) {
+    public double calcularDescuentoPorHora(LocalDateTime fechaIngreso, LocalTime horaIngreso) {
         if ((fechaIngreso.getDayOfWeek() == DayOfWeek.MONDAY || fechaIngreso.getDayOfWeek() == DayOfWeek.THURSDAY) &&
                 horaIngreso.isAfter(LocalTime.of(9, 0)) && horaIngreso.isBefore(LocalTime.of(12, 0))) {
             return 0.05;
@@ -175,7 +175,7 @@ public class GenerateRepairsServices {
         return 0.0;
     }
 
-    private double calculoRecargoKilometraje(VehiclesEntity vehicle){
+    public double calculoRecargoKilometraje(VehiclesEntity vehicle){
         SurchargeMileageEntity surchargeMileage = surchargeMileageRepository.findByKilometraje(vehicle.getKilometraje());
 
     if(vehicle.getTipo().equals("Sedan")){
@@ -194,7 +194,7 @@ public class GenerateRepairsServices {
 
     }
 
-    private double calculoRecargoAntiguedad(VehiclesEntity vehicle){
+    public double calculoRecargoAntiguedad(VehiclesEntity vehicle){
         LocalDate fechaActual = LocalDate.now();
         int añoActual = fechaActual.getYear();
         int añoFabricacion = Integer.parseInt(vehicle.getAnio_fabricacion()); // Convierte el año de fabricación de String a int.
@@ -218,7 +218,7 @@ public class GenerateRepairsServices {
         }
     }
 
-    private double obtenerDescuentoPorBono(VehiclesEntity vehicle){
+    public double obtenerDescuentoPorBono(VehiclesEntity vehicle){
 
         String marca_vehiculo = vehicle.getMarca();
         BonusesEntity bono = bonusesRepository.findByMarca(marca_vehiculo);
@@ -238,12 +238,12 @@ public class GenerateRepairsServices {
         }
     }
 
-    private double obtenerRecargoPorRetraso(LocalDateTime fechaSalidaReparacion, LocalDateTime fechaEntregaCliente){
+    public double obtenerRecargoPorRetraso(LocalDateTime fechaSalidaReparacion, LocalDateTime fechaEntregaCliente){
         long DiasRetraso = ChronoUnit.DAYS.between(fechaSalidaReparacion, fechaEntregaCliente);
         return DiasRetraso * 0.05;
     }
 
-    private double calcularIVA(double subtotal) {
+    public double calcularIVA(double subtotal) {
         return subtotal * 0.19;
     }
 
