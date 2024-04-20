@@ -27,4 +27,10 @@ public class RepairsServices {
     public String[] getTypes(){
         return repairsRepository.getTypes();
     }
+
+    //Metodo para obtener una reparacion por su id
+    public RepairsEntity getRepairById(Long id) {
+        return repairsRepository.findById(id).orElse(null);
+    }
+
 }

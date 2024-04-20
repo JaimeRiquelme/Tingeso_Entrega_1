@@ -11,5 +11,7 @@ public interface RepairsRepository extends JpaRepository<RepairsEntity, Long> {
     @Query(value = "SELECT r.id, r.type FROM RepairsEntity r")
     public String[] getTypes();
 
+    public RepairsEntity findById(long id);
+
 
 }

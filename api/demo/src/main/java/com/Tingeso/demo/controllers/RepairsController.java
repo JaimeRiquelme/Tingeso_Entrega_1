@@ -34,4 +34,15 @@ public class RepairsController {
         return ResponseEntity.ok(types);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<RepairsEntity> getRepairById(@PathVariable Long id) {
+        RepairsEntity repair = repairsServices.getRepairById(id);
+        if (repair != null) {
+            return ResponseEntity.ok(repair);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+
 }
