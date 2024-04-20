@@ -127,7 +127,7 @@ public class GenerateRepairsServices {
 
     }
 
-    private double calcularMontoReparaciones(VehiclesEntity vehicle, List<Long> idsReparaciones) {
+    public double calcularMontoReparaciones(VehiclesEntity vehicle, List<Long> idsReparaciones) {
         double montoReparaciones = 0.0;
         for (Long id : idsReparaciones) {
             RepairsEntity repair = repairsRepository.findById(id).orElse(null);
@@ -151,7 +151,7 @@ public class GenerateRepairsServices {
         return montoReparaciones;
     }
 
-    private double calcularDescuentoPorHistorial(String tipoMotor, int numeroReparaciones) {
+    public double calcularDescuentoPorHistorial(String tipoMotor, int numeroReparaciones) {
         double descuento = 0.0;
         if (numeroReparaciones > 0) {
             if (numeroReparaciones < 3) {
