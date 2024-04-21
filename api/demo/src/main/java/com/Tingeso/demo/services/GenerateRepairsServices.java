@@ -69,9 +69,15 @@ public class GenerateRepairsServices {
         // Verificar si se aplica descuento por bono
         double descuento_bono = 0;
         if (uso_bono) {
-            descuento_bono = obtenerDescuentoPorBono(vehicle);
-            // El descuento por bono se aplica directamente, ya que es un valor fijo en moneda
-            System.out.println("Descuento por bono aplicado: " + descuento_bono);
+            //Verificamos que la cantidad de bonos disponibles sea mayor a 0
+            if (Integer.parseInt(bonusesRepository.findByMarca(vehicle.getMarca()).getDisponibilidad()) > 0) {
+                descuento_bono = obtenerDescuentoPorBono(vehicle);
+                //Restamos 1 a la cantidad de bonos disponibles
+                BonusesEntity bono = bonusesRepository.findByMarca(vehicle.getMarca());
+                bono.setDisponibilidad(String.valueOf(Integer.parseInt(bono.getDisponibilidad()) - 1));
+                bonusesRepository.save(bono);
+            }
+
         }
 
         // Calcular el IVA
