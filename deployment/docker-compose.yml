@@ -45,7 +45,7 @@ services:
 
   backend1:
     container_name: AUTOFIX-backend-container1
-    image: jaimeriquelme/back-image
+    image: jaimeriquelme/backend-image
     ports:
       - 8091:8090
     environment:
@@ -60,7 +60,7 @@ services:
 
   backend2:
     container_name: AUTOFIX-backend-container2
-    image: jaimeriquelme/back-image
+    image: jaimeriquelme/backend-image
     ports:
       - 8092:8090
     environment:
@@ -75,7 +75,7 @@ services:
 
   backend3:
     container_name: AUTOFIX-backend-container3
-    image: jaimeriquelme/back-image
+    image: jaimeriquelme/backend-image
     ports:
       - 8093:8090
     environment:
@@ -90,7 +90,7 @@ services:
 
   frontend1:
     container_name: AUTOFIX-frontend-container1
-    image: jaimeriquelme/front-image
+    image: jaimeriquelme/frontend-image
     ports:
       - 3001:3000
     networks:
@@ -99,7 +99,7 @@ services:
 
   frontend2:
     container_name: AUTOFIX-frontend-container2
-    image: jaimeriquelme/front-image
+    image: jaimeriquelme/frontend-image
     ports:
       - 3002:3000
     networks:
@@ -108,7 +108,7 @@ services:
 
   frontend3:
     container_name: AUTOFIX-frontend-container3
-    image: jaimeriquelme/front-image
+    image: jaimeriquelme/frontend-image
     ports:
       - 3003:3000
     networks:
