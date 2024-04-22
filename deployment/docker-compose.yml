@@ -1,0 +1,123 @@
+version: "3.8"
+services:
+  nginx-backend:
+    image: nginx
+    container_name: AUTOFIX-nginx-backend
+    restart: always
+    ports:
+      - 80:80
+    volumes:
+      - ./backend.conf:/etc/nginx/nginx.conf
+    networks:
+      - AUTOFIX-backend-network
+    depends_on:
+      - backend1
+      - backend2
+      - backend3
+      
+  nginx-frontend:
+    image: nginx
+    container_name: AUTOFIX-nginx-frontend
+    restart: always
+    ports:
+      - 8070:8070
+    volumes:
+      - ./frontend.conf:/etc/nginx/nginx.conf
+    networks:
+      - AUTOFIX-frontend-network
+    depends_on:
+      - frontend1
+      - frontend2
+      - frontend3
+
+  postgres:
+    container_name: AUTOFIX-postgres-container
+    image: postgres
+    restart: on-failure
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - AUTOFIX-backend-network
+    environment:      
+      POSTGRES_PASSWORD: 210273
+    ports:
+      - 5435:5432
+
+  backend1:
+    container_name: AUTOFIX-backend-container1
+    image: jaimeriquelme/back-image
+    ports:
+      - 8091:8090
+    environment:
+      ADDRESS: AUTOFIX-postgres-container
+      PORT: 5432
+      PASS: 210273
+    networks:
+      - AUTOFIX-backend-network
+    restart: on-failure
+    depends_on:
+      - postgres
+
+  backend2:
+    container_name: AUTOFIX-backend-container2
+    image: jaimeriquelme/back-image
+    ports:
+      - 8092:8090
+    environment:
+      ADDRESS: AUTOFIX-postgres-container
+      PORT: 5432
+      PASS: 210273
+    networks:
+      - AUTOFIX-backend-network
+    restart: on-failure
+    depends_on:
+      - postgres
+
+  backend3:
+    container_name: AUTOFIX-backend-container3
+    image: jaimeriquelme/back-image
+    ports:
+      - 8093:8090
+    environment:
+      ADDRESS: AUTOFIX-postgres-container
+      PORT: 5432
+      PASS: 210273
+    networks:
+      - AUTOFIX-backend-network
+    restart: on-failure
+    depends_on:
+      - postgres
+
+  frontend1:
+    container_name: AUTOFIX-frontend-container1
+    image: jaimeriquelme/front-image
+    ports:
+      - 3001:3000
+    networks:
+      - AUTOFIX-frontend-network
+    restart: on-failure
+
+  frontend2:
+    container_name: AUTOFIX-frontend-container2
+    image: jaimeriquelme/front-image
+    ports:
+      - 3002:3000
+    networks:
+      - AUTOFIX-frontend-network
+    restart: on-failure
+
+  frontend3:
+    container_name: AUTOFIX-frontend-container3
+    image: jaimeriquelme/front-image
+    ports:
+      - 3003:3000
+    networks:
+      - AUTOFIX-frontend-network
+    restart: on-failure
+
+volumes:
+  postgres-data:
+
+networks:
+  AUTOFIX-backend-network:
+  AUTOFIX-frontend-network:
