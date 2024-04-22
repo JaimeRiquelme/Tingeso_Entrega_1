@@ -2,14 +2,14 @@ version: "3.8"
 services:
   nginx-backend:
     image: nginx
-    container_name: AUTOFIX-nginx-backend
+    container_name: autofix-nginx-backend
     restart: always
     ports:
       - 80:80
     volumes:
       - ./backend.conf:/etc/nginx/nginx.conf
     networks:
-      - AUTOFIX-backend-network
+      - autofix-backend-network
     depends_on:
       - backend1
       - backend2
@@ -17,107 +17,107 @@ services:
       
   nginx-frontend:
     image: nginx
-    container_name: AUTOFIX-nginx-frontend
+    container_name: autofix-nginx-frontend
     restart: always
     ports:
       - 8070:8070
     volumes:
       - ./frontend.conf:/etc/nginx/nginx.conf
     networks:
-      - AUTOFIX-frontend-network
+      - autofix-frontend-network
     depends_on:
       - frontend1
       - frontend2
       - frontend3
 
   postgres:
-    container_name: AUTOFIX-postgres-container
+    container_name: autofix-postgres-container
     image: postgres
     restart: on-failure
     volumes:
       - postgres-data:/var/lib/postgresql/data
     networks:
-      - AUTOFIX-backend-network
+      - autofix-backend-network
     environment:      
       POSTGRES_PASSWORD: 210273
     ports:
       - 5435:5432
 
   backend1:
-    container_name: AUTOFIX-backend-container1
-    image: jaimeriquelme/backend-image
+    container_name: autofix-backend-container1
+    image: jaimeriquelme/backend-imagen
     ports:
       - 8091:8090
     environment:
-      ADDRESS: AUTOFIX-postgres-container
+      ADDRESS: autofix-postgres-container
       PORT: 5432
       PASS: 210273
     networks:
-      - AUTOFIX-backend-network
+      - autofix-backend-network
     restart: on-failure
     depends_on:
       - postgres
 
   backend2:
-    container_name: AUTOFIX-backend-container2
-    image: jaimeriquelme/backend-image
+    container_name: autofix-backend-container2
+    image: jaimeriquelme/backend-imagen
     ports:
       - 8092:8090
     environment:
-      ADDRESS: AUTOFIX-postgres-container
+      ADDRESS: autofix-postgres-container
       PORT: 5432
       PASS: 210273
     networks:
-      - AUTOFIX-backend-network
+      - autofix-backend-network
     restart: on-failure
     depends_on:
       - postgres
 
   backend3:
-    container_name: AUTOFIX-backend-container3
-    image: jaimeriquelme/backend-image
+    container_name: autofix-backend-container3
+    image: jaimeriquelme/backend-imagen
     ports:
       - 8093:8090
     environment:
-      ADDRESS: AUTOFIX-postgres-container
+      ADDRESS: autofix-postgres-container
       PORT: 5432
       PASS: 210273
     networks:
-      - AUTOFIX-backend-network
+      - autofix-backend-network
     restart: on-failure
     depends_on:
       - postgres
 
   frontend1:
-    container_name: AUTOFIX-frontend-container1
-    image: jaimeriquelme/frontend-image
+    container_name: autofix-frontend-container1
+    image: jaimeriquelme/frontend-imagen
     ports:
       - 3001:3000
     networks:
-      - AUTOFIX-frontend-network
+      - autofix-frontend-network
     restart: on-failure
 
   frontend2:
-    container_name: AUTOFIX-frontend-container2
-    image: jaimeriquelme/frontend-image
+    container_name: autofix-frontend-container2
+    image: jaimeriquelme/frontend-imagen
     ports:
       - 3002:3000
     networks:
-      - AUTOFIX-frontend-network
+      - autofix-frontend-network
     restart: on-failure
 
   frontend3:
-    container_name: AUTOFIX-frontend-container3
-    image: jaimeriquelme/frontend-image
+    container_name: autofix-frontend-container3
+    image: jaimeriquelme/frontend-imagen
     ports:
       - 3003:3000
     networks:
-      - AUTOFIX-frontend-network
+      - autofix-frontend-network
     restart: on-failure
 
 volumes:
   postgres-data:
 
 networks:
-  AUTOFIX-backend-network:
-  AUTOFIX-frontend-network:
+  autofix-backend-network:
+  autofix-frontend-network:
