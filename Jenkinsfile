@@ -9,14 +9,14 @@ pipeline{
             steps{
                 checkout scmGit(branches: [[name: '/main']], extensions:[], userRemoteConfigs: [[url: 'https://github.com/JaimeRiquelme/Tingeso_Entrega_1']])
                 dir("api/demo"){
-                    bat "gradle build"
+                    sh "./gradlew build"
                 }
             }
         }
         stage('Test'){
             steps{
                 dir("api/demo"){
-                    bat "gradle test"
+                    sh "./gradlew test"
                 }
             }
         }
