@@ -6,14 +6,14 @@ pipeline {
             steps {
                 checkout scmGit(branches: [[name: 'refs/heads/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/JaimeRiquelme/Tingeso_Entrega_1']])
                 dir("api/demo") {
-                    sh "./gradlew clean build"
+                    bat ".\\gradlew clean build"  // Cambia a bat y usa las barras invertidas para Windows
                 }
             }
         }
         stage('Test') {
             steps {
                 dir("api/demo") {
-                    sh "./gradlew test"
+                    bat ".\\gradlew test"  // Cambia a bat y usa las barras invertidas para Windows
                 }
             }
         }
@@ -22,8 +22,8 @@ pipeline {
                 dir("api/demo") {
                     script {
                         withDockerRegistry(credentialsId: 'docker-credenciales') {
-                            sh "docker build -t jaimeriquelme/backend-imagen ."
-                            sh "docker push jaimeriquelme/backend-imagen"
+                            bat "docker build -t jaimeriquelme/backend-imagen ."
+                            bat "docker push jaimeriquelme/backend-imagen"
                         }
                     }
                 }
