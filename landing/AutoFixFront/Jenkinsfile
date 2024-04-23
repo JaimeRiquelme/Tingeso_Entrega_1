@@ -1,0 +1,27 @@
+pipeline{
+    agent any
+    stages{
+        stage('Build Frontend'){
+            steps{
+                checkout scmGit(branches: [[name: 'refs/heads/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/JaimeRiquelme/Tingeso_Entrega_1']])
+                dir("landing/AutoFixFront"){
+                    bat "npm install"
+                    bat "npm run build"
+                }
+
+            }
+        }
+        stage('Deploy'){
+            steps{
+                dir("landing/AutoFixFront"){
+                    script{
+                        withDockerRegistry(credentialsId: 'docker-credenciales'){
+                            bat "docker build -t jaimeriquelme/frontend-imagen ."
+                            bat "docker push jaimeriquelme/frontend-imagen"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

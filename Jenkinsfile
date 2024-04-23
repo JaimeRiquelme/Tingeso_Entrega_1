@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Build JAR File') {
             steps {
-                checkout scmGit(branches: [[name: 'refs/heads/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/JaimeRiquelme/Tingeso_Entrega_1']])
+                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/JaimeRiquelme/Tingeso_Entrega_1']])
                 dir("api/demo") {
                     bat ".\\gradlew clean build"  // Cambia a bat y usa las barras invertidas para Windows
                 }
