@@ -55,8 +55,11 @@ public class GenerateRepairsServices {
         System.out.println("IDs de reparaciones: " + ids_reparaciones);
         double MontoReparaciones = calcularMontoReparaciones(vehicle, ids_reparaciones);
 
+        int CantidadReparaciones = generateRepairsRepository.getCountReparacionesByPatenteUnaño(generateRepairs.getPatente_vehiculo());
+        System.out.println("Cantidad de reparaciones en el último año: " + CantidadReparaciones);
+
         // Calcular descuentos y recargos
-        double Descuento_Historial_Reparaciones = calcularDescuentoPorHistorial(vehicle.getTipo_motor(), vehicle.getNumero_reparaciones()) * MontoReparaciones;
+        double Descuento_Historial_Reparaciones = calcularDescuentoPorHistorial(vehicle.getTipo_motor(), CantidadReparaciones) * MontoReparaciones;
         double Descuento_Fecha_Hora_Ingreso = calcularDescuentoPorHora(generateRepairs.getFecha_ingreso_taller(), generateRepairs.getHora_ingreso_taller()) * MontoReparaciones;
         double recargo_kilometraje = calculoRecargoKilometraje(vehicle) * MontoReparaciones;
         double recargo_antiguedad = calculoRecargoAntiguedad(vehicle) * MontoReparaciones;
@@ -101,20 +104,14 @@ public class GenerateRepairsServices {
         Repairs.setHora_entrega_cliente(generateRepairs.getHora_entrega_cliente());
         Repairs.setPatente_vehiculo(generateRepairs.getPatente_vehiculo());
 
-        //Mostramos cada descuento y recargo
-        System.out.println("Descuento por historial de reparaciones: " + Descuento_Historial_Reparaciones);
-        System.out.println("Descuento por fecha y hora de ingreso: " + Descuento_Fecha_Hora_Ingreso);
-        System.out.println("Recargo por kilometraje: " + recargo_kilometraje);
-        System.out.println("Recargo por antiguedad: " + recargo_antiguedad);
-        System.out.println("Recargo por dias de retraso: " + RecargoDiasRetraso);
-        System.out.println("Descuento por bono: " + descuento_bono);
-        System.out.println("IVA: " + iva);
-        System.out.println("Monto total: " + monto);
-
-
 
         // Guardar la entidad en la BD
         generateRepairsRepository.save(Repairs);
+
+        // Aumentamos la cantidad de reparaicones del vehiculo
+        vehicle.setNumero_reparaciones(vehicle.getNumero_reparaciones() + 1);
+        vehiclesRepository.save(vehicle);
+
         Map<String, Object> response = new HashMap<>();
         response.put("generateRepair", Repairs);
         response.put("totalDescuentos", totalDescuentos);

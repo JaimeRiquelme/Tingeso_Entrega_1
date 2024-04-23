@@ -8,8 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface VehiclesRepository extends JpaRepository<VehiclesEntity, Long> {
 
-
-    //Encontrar vehiculo por su patente
     VehiclesEntity findByPatente(String patente);
 
     @Query(value = "SELECT v.patente FROM VehiclesEntity v")

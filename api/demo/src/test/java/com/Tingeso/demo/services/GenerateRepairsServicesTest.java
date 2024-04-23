@@ -728,14 +728,14 @@ public class GenerateRepairsServicesTest {
         assertNotNull(response);
         assertEquals(6, response.size());
         assertEquals(GenerateRepairsEntity.class, response.get("generateRepair").getClass());
-        assertEquals(510.0, response.get("totalDescuentos"));
+        assertEquals(150.0, response.get("totalDescuentos"));
         assertEquals(300.00000447034836, response.get("totalRecargos"));
         assertEquals(1000.0, response.get("descuentoBono"));
-        assertEquals(340.1000008493662, response.get("iva"));
+        assertEquals(408.5000008493662, response.get("iva"));
         assertEquals(3000.0, response.get("montoReparaciones"));
 
         GenerateRepairsEntity generateRepair = (GenerateRepairsEntity) response.get("generateRepair");
-        assertEquals(2130.1F, generateRepair.getMonto_total_reparacion());
+        assertEquals(2558.5F, generateRepair.getMonto_total_reparacion());
         assertEquals(LocalDateTime.of(2021, 5, 10, 10, 0), generateRepair.getFecha_ingreso_taller());
         assertEquals(LocalTime.of(10, 0), generateRepair.getHora_ingreso_taller());
         assertEquals("1,2,3", generateRepair.getTipo_reparacion());

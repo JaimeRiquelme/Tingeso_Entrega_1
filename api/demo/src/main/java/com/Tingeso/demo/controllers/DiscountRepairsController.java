@@ -17,8 +17,6 @@ public class DiscountRepairsController {
     public DiscountRepairsEntity findByIdDiscount(@PathVariable("id") int idDiscount) {
         return discountRepairsServices.findById(idDiscount);
     }
-
-
     @PostMapping("/")
     public DiscountRepairsEntity saveDiscountRepairs(@RequestBody DiscountRepairsEntity discountRepairsEntity){
         return discountRepairsServices.saveDiscountRepairs(discountRepairsEntity);
