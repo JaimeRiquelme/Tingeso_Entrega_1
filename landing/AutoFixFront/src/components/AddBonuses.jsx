@@ -44,8 +44,8 @@ const ListBonuses = () => {
                   sx={{
                     '&:last-child td, &:last-child th': { border: 0 },
                     '&:hover': {
-                      backgroundColor: 'rgba(0, 0, 0, 0.1)', // Oscurece la fila al pasar el mouse
-                      cursor: 'pointer' // Cambia el cursor a puntero para mejorar la interacción
+                      backgroundColor: 'rgba(0, 0, 0, 0.1)',
+                      cursor: 'pointer' 
                     }
                   }}
                   selected={selectedBonusId === bonus.id}
