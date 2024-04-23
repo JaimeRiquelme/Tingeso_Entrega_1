@@ -6,14 +6,22 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
+import Brightness4Icon from '@mui/icons-material/Brightness4'; // Icono para el modo oscuro
+import Brightness7Icon from '@mui/icons-material/Brightness7'; // Icono para el modo claro
 import Sidemenu from "./Sidemenu";
 import { useState } from "react";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const [darkMode, setDarkMode] = useState(false);
 
   const toggleDrawer = (open) => (event) => {
     setOpen(open);
+  };
+
+  const toggleTheme = () => {
+    setDarkMode(!darkMode);
+    document.body.classList.toggle('dark-theme');
   };
 
   return (
@@ -34,6 +42,15 @@ export default function Navbar() {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             AutoFix : Sistema de Gestión de Reparaciones y Mantenciones de Vehículos
           </Typography>
+
+          <IconButton
+            sx={{ ml: 1 }}
+            onClick={toggleTheme}
+            color="inherit"
+          >
+            {darkMode ? <Brightness7Icon /> : <Brightness4Icon />}
+          </IconButton>
+
           <Button color="inherit">Login</Button>
         </Toolbar>
       </AppBar>

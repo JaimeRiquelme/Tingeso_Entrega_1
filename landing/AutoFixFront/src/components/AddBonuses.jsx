@@ -34,7 +34,6 @@ const ListBonuses = () => {
                 <TableCell>ID</TableCell>
                 <TableCell align="right">Cantidad</TableCell>
                 <TableCell align="right">Marca</TableCell>
-                {/* Agrega más columnas según necesites */}
                 <TableCell align="right">Monto</TableCell>
               </TableRow>
             </TableHead>
@@ -42,7 +41,13 @@ const ListBonuses = () => {
               {bonuses.map((bonus) => (
                 <TableRow
                   key={bonus.id}
-                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                  sx={{
+                    '&:last-child td, &:last-child th': { border: 0 },
+                    '&:hover': {
+                      backgroundColor: 'rgba(0, 0, 0, 0.1)', // Oscurece la fila al pasar el mouse
+                      cursor: 'pointer' // Cambia el cursor a puntero para mejorar la interacción
+                    }
+                  }}
                   selected={selectedBonusId === bonus.id}
                   onClick={() => setSelectedBonusId(bonus.id)}
                 >

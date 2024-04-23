@@ -61,7 +61,7 @@ export default function Sidemenu({ open, toggleDrawer }) {
           <ListItemIcon>
           <PlusIcon/>
           </ListItemIcon>
-          <ListItemText primary="Reparaciones por combustible" />
+          <ListItemText primary="Reporte Reparaciones por combustible" />
         </ListItemButton>
         
       </List>
