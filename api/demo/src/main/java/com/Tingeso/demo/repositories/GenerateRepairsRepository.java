@@ -3,6 +3,7 @@ package com.Tingeso.demo.repositories;
 import com.Tingeso.demo.entities.GenerateRepairsEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -29,8 +30,8 @@ FROM reparaciones
 WHERE patente_vehiculo = 'J1J1J1'
   AND fecha_salida_reparacion >= CURRENT_DATE - INTERVAL '1 year'
 */
-    @Query(value = "SELECT COUNT(*) AS cantidad_reparaciones FROM reparaciones WHERE patente_vehiculo = ?1 AND fecha_salida_reparacion >= CURRENT_DATE - INTERVAL '1 year'", nativeQuery = true)
-    public int getCountReparacionesByPatenteUnaño(String patente);
+    @Query(value = "SELECT COUNT(*) AS cantidad_reparaciones FROM reparaciones WHERE patente_vehiculo = :patente AND fecha_salida_reparacion >= CURRENT_DATE - INTERVAL '1 year'", nativeQuery = true)
+    public int getCountReparacionesByPatenteUnaño(@Param("patente") String patente);
 
 
 
