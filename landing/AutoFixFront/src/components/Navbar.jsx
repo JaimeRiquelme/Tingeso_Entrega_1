@@ -50,8 +50,6 @@ export default function Navbar() {
           >
             {darkMode ? <Brightness7Icon /> : <Brightness4Icon />}
           </IconButton>
-
-          <Button color="inherit">Login</Button>
         </Toolbar>
       </AppBar>
 
