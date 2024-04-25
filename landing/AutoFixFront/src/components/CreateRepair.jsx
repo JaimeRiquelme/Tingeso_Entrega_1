@@ -233,7 +233,7 @@ const CreateRepair = () => {
           labelId="patente_vehiculo-label"
           id="patente_vehiculo"
           value={patente_vehiculo}
-          onChange={(e) => setPatenteVehiculo(e.target.value)} // Cambia aquí a setPatente
+          onChange={(e) => setPatenteVehiculo(e.target.value)} 
           label="Patente"
           required
         >
