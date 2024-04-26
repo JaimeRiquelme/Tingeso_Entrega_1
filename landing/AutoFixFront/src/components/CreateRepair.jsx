@@ -274,7 +274,6 @@ const CreateRepair = () => {
             patente_vehiculo
             && fecha_ingreso_taller <= fecha_salida_reparacion
             && fecha_salida_reparacion <= fecha_entrega_cliente
-            && fecha_entrega_cliente <= fecha_ingreso_taller 
           
           ) {
             saveCreateRepair(e);
