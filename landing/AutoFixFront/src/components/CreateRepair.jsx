@@ -272,10 +272,19 @@ const CreateRepair = () => {
             fecha_entrega_cliente &&
             hora_entrega_cliente &&
             patente_vehiculo
+            && fecha_ingreso_taller <= fecha_salida_reparacion
+            && fecha_salida_reparacion <= fecha_entrega_cliente
+            && fecha_entrega_cliente <= fecha_ingreso_taller 
+          
           ) {
             saveCreateRepair(e);
           } else {
-            alert("Por favor, rellene todos los campos");
+            if(fecha_ingreso_taller > fecha_salida_reparacion || fecha_salida_reparacion > fecha_entrega_cliente || fecha_entrega_cliente > fecha_ingreso_taller){
+              alert("Debe ingresar las fechas correctamente.");
+            }
+            else{
+              alert("Debe completar todos los campos");
+            }
             e.preventDefault();
           }
         }}
