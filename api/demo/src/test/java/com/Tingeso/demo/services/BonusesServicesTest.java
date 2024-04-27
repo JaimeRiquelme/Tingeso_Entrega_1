@@ -33,7 +33,7 @@ public class BonusesServicesTest {
         BonusesEntity bonus1 = new BonusesEntity();
         BonusesEntity bonus2 = new BonusesEntity();
         BonusesEntity bonus3 = new BonusesEntity();
-        List<BonusesEntity> bonuses = new ArrayList<>();
+        ArrayList<BonusesEntity> bonuses = new ArrayList<>();
         bonuses.add(bonus1);
         bonuses.add(bonus2);
         bonuses.add(bonus3);
@@ -87,7 +87,7 @@ public class BonusesServicesTest {
         bonus.setMonto(10000);
 
         //When
-        when(bonusesRepository.findById(1L)).thenReturn(java.util.Optional.of(bonus));
+        when(bonusesRepository.findById(1L)).thenReturn(bonus);
         when(bonusesRepository.save(bonus)).thenReturn(bonus);
         BonusesEntity bonusUpdated = bonusesServices.updateBonus(bonus, 1L);
 
@@ -110,7 +110,7 @@ public class BonusesServicesTest {
         bonus.setMonto(10000);
 
         //When
-        when(bonusesRepository.findById(1L)).thenReturn(java.util.Optional.of(bonus));
+        when(bonusesRepository.findById(1L)).thenReturn(bonus);
         BonusesEntity bonusFound = bonusesServices.getBonusById(1L);
 
         //Then

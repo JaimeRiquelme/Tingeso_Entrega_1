@@ -56,7 +56,7 @@ public class GenerateRepairsServicesTest {
         GenerateRepairsEntity generateRepair2 = new GenerateRepairsEntity();
         GenerateRepairsEntity generateRepair3 = new GenerateRepairsEntity();
 
-        List<GenerateRepairsEntity> generateRepairs = new ArrayList<>();
+        ArrayList<GenerateRepairsEntity> generateRepairs = new ArrayList<>();
         generateRepairs.add(generateRepair1);
         generateRepairs.add(generateRepair2);
         generateRepairs.add(generateRepair3);

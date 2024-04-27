@@ -15,7 +15,7 @@ public class BonusesServices {
 
     //Metodo para obtener todos los bonos
     public ArrayList<BonusesEntity> getBonuses(){
-        return (ArrayList<BonusesEntity>) bonusesRepository.findAll();
+        return bonusesRepository.findAll();
     }
 
     //metodo para guardar un bono en la BD
@@ -24,7 +24,7 @@ public class BonusesServices {
     }
 
     public BonusesEntity updateBonus(BonusesEntity bonus, long id){
-        BonusesEntity bonusUpdate = bonusesRepository.findById(id).get();
+        BonusesEntity bonusUpdate = bonusesRepository.findById(id);
         bonusUpdate.setMarca(bonus.getMarca());
         bonusUpdate.setDisponibilidad(bonus.getDisponibilidad());
         bonusUpdate.setMonto(bonus.getMonto());
@@ -32,6 +32,6 @@ public class BonusesServices {
     }
 
     public BonusesEntity getBonusById(long id){
-        return bonusesRepository.findById(id).get();
+        return bonusesRepository.findById(id);
     }
 }

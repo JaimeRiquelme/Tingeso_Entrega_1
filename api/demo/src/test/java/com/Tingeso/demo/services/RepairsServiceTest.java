@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.InstanceOfAssertFactories.ARRAY;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.when;
 import static org.mockito.BDDMockito.given;
@@ -33,7 +34,7 @@ public class RepairsServiceTest {
         RepairsEntity repair1 = new RepairsEntity();
         RepairsEntity repair2 = new RepairsEntity();
         RepairsEntity repair3 = new RepairsEntity();
-        List<RepairsEntity> repairs = new ArrayList<>();
+        ArrayList<RepairsEntity> repairs = new ArrayList<RepairsEntity>();
         repairs.add(repair1);
         repairs.add(repair2);
         repairs.add(repair3);

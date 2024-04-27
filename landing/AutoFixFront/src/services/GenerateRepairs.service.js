@@ -24,11 +24,16 @@ const getGenerateRepairsGroupByCombustible = () => {
     return httpCommon.get("api/v1/generateRepairs/GenerateGroupByCombustible");
 }
 
+const getAll = () => {
+    return httpCommon.get("api/v1/generateRepairs/");
+};
+
 export default {
     generateRepairs,
     getGenerateRepairs,
     getReportAvgHours,
     getGenerateRepairsById,
     getGenerateRepairsGroupByTipe,
-    getGenerateRepairsGroupByCombustible
+    getGenerateRepairsGroupByCombustible,
+    getAll
 };

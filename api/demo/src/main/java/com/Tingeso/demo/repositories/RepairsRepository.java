@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import com.Tingeso.demo.entities.RepairsEntity;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 @Repository
@@ -14,6 +15,8 @@ public interface RepairsRepository extends JpaRepository<RepairsEntity, Long> {
     public String[] getTypes();
 
     public Optional<RepairsEntity> findById(Long id);
+
+    public ArrayList<RepairsEntity> findAll();
 
 
 }

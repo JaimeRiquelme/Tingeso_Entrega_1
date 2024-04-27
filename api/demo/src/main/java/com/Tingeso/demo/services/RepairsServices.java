@@ -15,7 +15,7 @@ public class RepairsServices {
 
     //Metodo para obtener todas las reparaciones
     public ArrayList<RepairsEntity> getRepairs(){
-        return (ArrayList<RepairsEntity>) repairsRepository.findAll();
+        return repairsRepository.findAll();
     }
 
     //Metodo para guardar una reparacion en la BD

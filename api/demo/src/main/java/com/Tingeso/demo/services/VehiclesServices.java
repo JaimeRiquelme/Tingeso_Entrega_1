@@ -15,7 +15,7 @@ public class VehiclesServices {
 
     //Metodo para obtener todos los vehiculos
     public ArrayList<VehiclesEntity> getVehicles(){
-        return (ArrayList<VehiclesEntity>) vehiclesRepository.findAll();
+        return vehiclesRepository.findAll();
     }
 
     //Metodo para guardar un vehiculo en la BD

@@ -35,9 +35,12 @@ public class GenerateRepairsServices {
     @Autowired
     BonusesRepository bonusesRepository;
 
+    @Autowired
+    GenerateRepairsDetailsRepository generateRepairsDetailsRepository;
+
     //Metodo para obtener todas las reparaciones generadas
     public ArrayList<GenerateRepairsEntity> getGenerateRepairs(){
-        return (ArrayList<GenerateRepairsEntity>) generateRepairsRepository.findAll();
+        return generateRepairsRepository.findAll();
     }
 
     //Metodo para guardar una reparacion generada en la BD
@@ -105,12 +108,30 @@ public class GenerateRepairsServices {
         Repairs.setPatente_vehiculo(generateRepairs.getPatente_vehiculo());
 
 
-        // Guardar la entidad en la BD
-        generateRepairsRepository.save(Repairs);
+        // Guardar la entidad en la BD y obtenemos la llave primaria generada
+
+        Long key = generateRepairsRepository.save(Repairs).getId();
+
+        System.out.println("ID de la reparación generada: " + key);
+
 
         // Aumentamos la cantidad de reparaicones del vehiculo
         vehicle.setNumero_reparaciones(vehicle.getNumero_reparaciones() + 1);
         vehiclesRepository.save(vehicle);
+
+        // Guardar los detalles de la reparación generada
+        GenerateRepairsDetailsEntity details = new GenerateRepairsDetailsEntity();
+        details.setReparacion_id(key);
+        details.setTotal_descuento((float) totalDescuentos);
+        details.setTotal_recargos((float) totalRecargos);
+        details.setDescuento_bono((float) descuento_bono);
+        details.setIva((float) iva);
+        details.setMonto_reparaciones((float) MontoReparaciones);
+        details.setTotal((float) monto);
+
+        // Guardar los detalles en la BD
+        generateRepairsDetailsRepository.save(details);
+
 
         Map<String, Object> response = new HashMap<>();
         response.put("generateRepair", Repairs);
@@ -269,4 +290,6 @@ public class GenerateRepairsServices {
     public List<Object[]> GenerateGroupByCombustible(){
         return generateRepairsRepository.GenerateGroupByCombustible();
     }
+
+
 }

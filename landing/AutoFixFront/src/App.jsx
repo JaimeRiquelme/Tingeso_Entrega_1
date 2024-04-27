@@ -11,6 +11,8 @@ import AVGHourReport from './components/AVGHourReport';
 import ViewNewRepair from './components/ViewNewRepair';
 import ViewRepairsTypeReport from './components/ViewReapairsTypeReport';
 import ViewRepairsByCombustible from './components/ViewRepairsByCombustible';
+import RepairList from './components/RepairsList';
+import ViewRepairsDetails from './components/ViewRepairsDetails';
 
 function App() {
   return (
@@ -28,6 +30,8 @@ function App() {
               <Route path = "/GenerateRepair/ViewNewRepair" element={<ViewNewRepair/>} />
               <Route path = "/GenerateRepair/ViewRepairsTypeReport" element={<ViewRepairsTypeReport/>} />
               <Route path = "/GenerateRepair/ViewRepairsByCombustible" element={<ViewRepairsByCombustible/>} />
+              <Route path = "/repairs/list" element={<RepairList/>} />
+              <Route path = "/repairs/details/:id" element={<ViewRepairsDetails/>} />
             </Routes>
           </div>
       </Router>
