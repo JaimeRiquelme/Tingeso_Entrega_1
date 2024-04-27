@@ -142,9 +142,6 @@ public class GenerateRepairsServices {
         response.put("montoReparaciones", MontoReparaciones);
 
 
-
-
-
         return response;
 
 
