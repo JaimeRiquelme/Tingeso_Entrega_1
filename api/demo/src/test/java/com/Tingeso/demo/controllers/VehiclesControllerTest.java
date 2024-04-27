@@ -2,10 +2,7 @@ package com.Tingeso.demo.controllers;
 
 import com.Tingeso.demo.entities.VehiclesEntity;
 import com.Tingeso.demo.services.VehiclesServices;
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -31,57 +28,11 @@ public class VehiclesControllerTest {
 
     @MockBean
     private VehiclesServices vehiclesServices;
-/*
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(unique = true, nullable = false)
-    private long id;
 
-    @Column(unique = true, nullable = false)
-    private String patente;
-
-    private String marca;
-
-    private String modelo;
-
-    private String tipo;
-
-    private String anio_fabricacion;
-
-    private String tipo_motor;
-
-    private String numero_asientos;
-
-    private int numero_reparaciones;
-
- */
     // Test para listar vehiculos y verificar que se retorne una lista de vehiculos
     @Test
     public void listVehicles_ShouldReturnVehicles() throws Exception{
-        /*
-        *  @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(unique = true, nullable = false)
-    private long id;
 
-    @Column(unique = true, nullable = false)
-    private String patente;
-
-    private String marca;
-
-    private String modelo;
-
-    private String tipo;
-
-    private String anio_fabricacion;
-
-    private String tipo_motor;
-
-    private String numero_asientos;
-
-    private int numero_reparaciones;
-
-    private int kilometraje;*/
 
 
         //Creamos un vehiculo con todos los atributos y kilometraje

@@ -13,4 +13,8 @@ public interface GenerateRepairsDetailsRepository extends JpaRepository<Generate
     @Query(value = "SELECT * FROM Detalle_Reparaciones WHERE reparacion_id = :idreparacion", nativeQuery = true)
     public GenerateRepairsDetailsEntity findByReparacion_id(@Param("idreparacion") int idreparacion);
 
+   //guardar
+
+    public GenerateRepairsDetailsEntity save(GenerateRepairsDetailsEntity details);
+
 }
