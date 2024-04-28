@@ -52,7 +52,7 @@ const ViewRepairsTypeReport = () => {
                 series={[
                 {
                     dataKey: 'cost',
-                    label: 'Costo Total',
+                    label: 'Total',
                     valueFormatter: (value) => `$${value}`
                 }]}
             />
