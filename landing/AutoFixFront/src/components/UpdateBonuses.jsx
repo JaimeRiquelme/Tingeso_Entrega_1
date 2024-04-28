@@ -71,6 +71,9 @@ const EditBonus = () => {
           <Button variant="contained" color="primary" type="submit">
             Actualizar Bono
           </Button>
+          <Button variant="contained" color="secondary" onClick={() => navigate("/bonuses/add")}>
+            Cancelar
+          </Button>
         </Box>
       </form>
     </Paper>

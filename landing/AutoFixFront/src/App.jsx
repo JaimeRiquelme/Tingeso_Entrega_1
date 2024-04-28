@@ -7,7 +7,7 @@ import ListVehicle from './components/ListVehicle';
 import AddBonuses from './components/AddBonuses';
 import UpdateBonuses from './components/UpdateBonuses';
 import CreateRepair from './components/CreateRepair';
-import AVGHourReport from './components/AVGHourReport';
+import AVGHourReport from './components/ViewAVGHourReport';
 import ViewNewRepair from './components/ViewNewRepair';
 import ViewRepairsTypeReport from './components/ViewReapairsTypeReport';
 import ViewRepairsByCombustible from './components/ViewRepairsByCombustible';

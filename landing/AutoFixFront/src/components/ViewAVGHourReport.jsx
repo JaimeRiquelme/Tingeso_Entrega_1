@@ -17,8 +17,8 @@ const AVGHourReport = () => {
     }, []);
 
     const columns = [
-        { field: 'brand', headerName: 'Brand', width: 150 },
-        { field: 'avgHours', headerName: 'Average Hours', width: 150, type: 'number' }
+        { field: 'brand', headerName: 'Marca', width: 400 },
+        { field: 'avgHours', headerName: 'Horas Promedio', width: 150, type: 'number' }
     ];
 
     const rows = data.map((item, index) => ({
@@ -26,7 +26,6 @@ const AVGHourReport = () => {
         brand: item[0],
         avgHours: item[1]
     }));
-
 
     return (
         <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center">
@@ -38,7 +37,7 @@ const AVGHourReport = () => {
                 dataset={data.map(item => ({ brand: item[0], avgHours: item[1] }))}
                 series={[{
                     dataKey: 'avgHours',
-                    label: 'Average Hours',
+                    label: 'Horas Promedio',
                     valueFormatter: (value) => `${value.toFixed(2)} hrs`
                 }]}
             />
@@ -48,14 +47,11 @@ const AVGHourReport = () => {
                     columns={columns}
                     pageSize={5}
                     rowsPerPageOptions={[5]}
-                    checkboxSelection
                     disableSelectionOnClick
                 />
             </Box>
         </Box>
     );
-
-
 };
 
 export default AVGHourReport;

@@ -116,13 +116,22 @@ const CreateRepair = () => {
 
   return (
     <Box
-      display="flex"
-      flexDirection="column"
-      alignItems="center"
-      justifyContent="center"
-      component="form"
-      onSubmit={saveCreateRepair}
-    >
+    display="flex"
+    flexDirection="column"
+    width={600}
+    alignItems="center"
+    justifyContent="center"
+    component="form"
+    onSubmit={saveCreateRepair}
+    sx={{
+      border: '1px solid #ccc', 
+      boxShadow: '0px 0px 10px rgba(0,0,0,0.1)', 
+      borderRadius: '8px', 
+      bgcolor: 'background.paper', 
+      p: 3, 
+      mt: 2 
+    }}
+  >
       <h3>Registrar Reparación</h3>
       <hr />
       <FormControl fullWidth margin="normal">

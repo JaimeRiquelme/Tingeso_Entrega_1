@@ -16,24 +16,13 @@ const ViewRepairsByCombustible = () => {
         fetchData();
     }, []);
 
-    //Ejemplo del data:
-    /*[
-        "Motor", //Tipo de reparacion
-        1,   Vehiculos gasolina
-        2,      Vehiculos diesel
-        2,    Vehiculos hibridos
-        0,  Vehiculos electricos
-        6550000.0  monto total del tipo de reparacion
-    ],
-
-    */
 
     const columns = [
-        { field: 'name', headerName: 'Name', width: 150 },
-        { field: 'gasoline', headerName: 'Gasoline', width: 150, type: 'number' },
+        { field: 'name', headerName: 'Nombre', width: 150 },
+        { field: 'gasoline', headerName: 'Gasolina', width: 150, type: 'number' },
         { field: 'diesel', headerName: 'Diesel', width: 150, type: 'number' },
-        { field: 'hybrid', headerName: 'Hybrid', width: 150, type: 'number' },
-        { field: 'electric', headerName: 'Electric', width: 150, type: 'number' },
+        { field: 'hybrid', headerName: 'Híbrido', width: 150, type: 'number' },
+        { field: 'electric', headerName: 'Electrico', width: 150, type: 'number' },
         { field: 'total', headerName: 'Total', width: 150, type: 'number' }
     ];
 
@@ -48,13 +37,12 @@ const ViewRepairsByCombustible = () => {
     }));
 
     return (
-        <div style={{ height: 400, width: '100%' }}>
+        <div style={{ height: 700, width: '100%' }}>
             <DataGrid
                 rows={rows}
                 columns={columns}
                 pageSize={5}
                 rowsPerPageOptions={[5]}
-                checkboxSelection
                 disableSelectionOnClick
             />
         </div>

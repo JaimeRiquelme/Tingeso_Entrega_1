@@ -42,7 +42,7 @@ const RepairsList = () => {
                 </Button>
             </Link>
             <br /> <br />
-            <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
+            <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table" >
                 <TableHead>
                     <TableRow>
                         <TableCell>Id Reparación</TableCell>
