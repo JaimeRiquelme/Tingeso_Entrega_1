@@ -19,7 +19,7 @@ const Home = () => {
       </p>
       <Stack direction="column" spacing={2} alignItems={'center'}>
         <Button variant="contained" size="large"  onClick={() => navigate("/vehicles/List")} style={{ width: 250 }}>
-          Ver vehículos
+          Ver Listado vehículos
         </Button>
         <Button variant="contained" size="large" onClick={() => navigate("/bonuses/add")} style={{ width: 250 }}>
           Ver y Actualizar Bonos
